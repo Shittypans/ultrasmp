@@ -18,18 +18,21 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            margin: 0;
         }
         .overlay {
             background-color: rgba(0, 0, 0, 0.6);
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
         }
         h1 {
-            font-size: 3rem;
+            font-size: 2rem;
             font-weight: bold;
         }
         p {
-            font-size: 1.25rem;
+            font-size: 1rem;
         }
         .discord-link {
             position: fixed;
@@ -42,6 +45,7 @@
             text-decoration: none;
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
         }
         .discord-link:hover {
             background-color: #4752C4;
@@ -49,16 +53,17 @@
         .nav-bar {
             position: fixed;
             top: 10px;
-            right: 20px;
+            right: 10px;
         }
         .nav-bar a {
             color: white;
             text-decoration: none;
             font-weight: bold;
-            margin-left: 15px;
+            margin-left: 10px;
             padding: 5px 10px;
             border: 2px solid white;
             border-radius: 5px;
+            font-size: 0.9rem;
         }
         .nav-bar a:hover {
             background-color: white;
@@ -66,9 +71,14 @@
         }
         .logo {
             position: absolute;
-            top: 20px;
+            top: 10px;
             animation: bounce 3s infinite ease-in-out, pulse 2s infinite ease-in-out;
-            width: 230px; /* Nastavení velikosti loga */
+            width: 150px;
+        }
+        ul {
+            padding: 0;
+            list-style-type: none;
+            font-size: 1rem;
         }
         @keyframes bounce {
             0%, 100% {
@@ -84,6 +94,25 @@
             }
             50% {
                 transform: scale(1.1);
+            }
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            p {
+                font-size: 0.9rem;
+            }
+            .discord-link {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            .nav-bar a {
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+            .logo {
+                width: 120px;
             }
         }
     </style>
@@ -106,12 +135,12 @@
                 <tr>
                     <td><img src="https://minotar.net/avatar/6ok9/50" alt="6ok9" style="border-radius: 5px;"></td>
                     <td>6ok9</td>
-                    <td style="color: red; font-weight: bold;">Majitel</td>
+                    <td style="color: red; font-weight: bold; text-shadow: 0 0 10px red;">Majitel</td>
                 </tr>
                 <tr>
                     <td><img src="https://minotar.net/avatar/fr4ddos/50" alt="fr4ddos" style="border-radius: 5px;"></td>
                     <td>fr4ddos</td>
-                    <td style="color: red; font-weight: bold;">Majitel</td>
+                    <td style="color: red; font-weight: bold; text-shadow: 0 0 10px red;">Majitel</td>
                 </tr>
                 <tr>
                     <td><img src="https://minotar.net/avatar/z0yn3_/50" alt="z0yn3_" style="border-radius: 5px;"></td>

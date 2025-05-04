@@ -18,18 +18,21 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            margin: 0;
         }
         .overlay {
             background-color: rgba(0, 0, 0, 0.6);
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
         }
         h1 {
-            font-size: 3rem;
+            font-size: 2rem;
             font-weight: bold;
         }
         p {
-            font-size: 1.25rem;
+            font-size: 1rem;
         }
         .discord-link {
             position: fixed;
@@ -42,6 +45,7 @@
             text-decoration: none;
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
         }
         .discord-link:hover {
             background-color: #4752C4;
@@ -49,16 +53,17 @@
         .nav-bar {
             position: fixed;
             top: 10px;
-            right: 20px;
+            right: 10px;
         }
         .nav-bar a {
             color: white;
             text-decoration: none;
             font-weight: bold;
-            margin-left: 15px;
+            margin-left: 10px;
             padding: 5px 10px;
             border: 2px solid white;
             border-radius: 5px;
+            font-size: 0.9rem;
         }
         .nav-bar a:hover {
             background-color: white;
@@ -66,9 +71,14 @@
         }
         .logo {
             position: absolute;
-            top: 20px;
+            top: 10px;
             animation: bounce 3s infinite ease-in-out, pulse 2s infinite ease-in-out;
-            width: 230px; /* Nastavení velikosti loga */
+            width: 150px;
+        }
+        ul {
+            padding: 0;
+            list-style-type: none;
+            font-size: 1rem;
         }
         @keyframes bounce {
             0%, 100% {
@@ -86,26 +96,45 @@
                 transform: scale(1.1);
             }
         }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            p {
+                font-size: 0.9rem;
+            }
+            .discord-link {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            .nav-bar a {
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+            .logo {
+                width: 120px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Logo -->
     <img src="logo.png" alt="Logo" class="logo">
 
-
     <div class="overlay">
         <h1>Vítejte na UltraSMP Minecraft Serveru</h1>
         <p>Připojte se k naší komunitě a objevte svět UltraSMP!</p>
         <div class="features mt-4">
             <h2>Funkce</h2>
-            <ul style="list-style-type: none; padding: 0; font-size: 1.25rem;">
+            <ul>
                 <li>🌌 Vlastní End dimenze</li>
                 <li>🌲 Vlastní biomy</li>
                 <li>🎨 Vlastní resource packy</li>
                 <li>🏆 Nejlepší SMP v Česku</li>
             </ul>
         </div>
-        <p class="mt-4" style="font-size: 1.5rem; font-weight: bold;">IP: mc.ultrasmp.cz</p>
+        <p class="mt-4" style="font-size: 1.2rem; font-weight: bold;">IP: mc.ultrasmp.cz</p>
+        <p class="mt-3" style="font-size: 1rem;">Chcete se zapojit do náboru na server jako člen? Připojte se na náš <a href="https://discord.gg/SEcppcuTUy" target="_blank" style="color: #5865F2; text-decoration: underline;">Discord</a>.</p>
     </div>
 
     <!-- Navigation Bar -->
