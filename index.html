@@ -74,37 +74,41 @@
   </section>
 
   <!-- Statistiky -->
-  <section id="stats" class="bg-dark">
-    <div class="container text-center">
-      <h2 class="mb-4">Statistiky serveru</h2>
-      <div class="row g-4">
-        <div class="col-md-3">
-          <div class="card p-3">
-            <h5>Online hráči</h5>
-            <p class="fs-4 fw-bold">42</p>
-          </div>
+<section id="stats" class="bg-dark">
+  <div class="container text-center">
+    <h2 class="mb-4">Statistiky serveru</h2>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card p-3">
+          <h5>Status</h5>
+          <p id="status" class="fs-5 fw-bold">Načítání...</p>
         </div>
-        <div class="col-md-3">
-          <div class="card p-3">
-            <h5>Celkem hráčů</h5>
-            <p class="fs-4 fw-bold">1258</p>
-          </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <h5>Online hráči</h5>
+          <p id="onlineCount" class="fs-4 fw-bold">—</p>
         </div>
-        <div class="col-md-3">
-          <div class="card p-3">
-            <h5>Uptime</h5>
-            <p class="fs-4 fw-bold">99.8%</p>
-          </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <h5>Max hráčů</h5>
+          <p id="maxCount" class="fs-4 fw-bold">—</p>
         </div>
-        <div class="col-md-3">
-          <div class="card p-3">
-            <h5>Verze</h5>
-            <p class="fs-4 fw-bold">1.21.1</p>
-          </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <h5>Verze</h5>
+          <p id="version" class="fs-4 fw-bold">—</p>
         </div>
       </div>
     </div>
-  </section>
+    <div class="mt-4 card p-3">
+      <h5>MOTD</h5>
+      <p id="motd" class="fw-semibold">Načítám...</p>
+    </div>
+  </div>
+</section>
 
   <!-- Blacklist -->
   <section id="blacklist">
@@ -139,9 +143,40 @@
   <footer>
     © 2025 UltraSMP — Všechna práva vyhrazená | Made with ❤️ by zakbrashko
   </footer>
+<script>
+async function loadStats() {
+  const res = await fetch("https://api.mcsrvstat.us/2/play.ultrasmp.cz");
+  const data = await res.json();
+
+  const online = document.getElementById("onlineCount");
+  const max = document.getElementById("maxCount");
+  const version = document.getElementById("version");
+  const motd = document.getElementById("motd");
+  const status = document.getElementById("status");
+
+  if (!data.online) {
+    status.innerHTML = "🔴 Offline";
+    online.innerHTML = "0";
+    max.innerHTML = "-";
+    version.innerHTML = "—";
+    motd.innerHTML = "Server nedostupný";
+    return;
+  }
+
+  status.innerHTML = "🟢 Online";
+  online.innerHTML = data.players.online;
+  max.innerHTML = data.players.max;
+  version.innerHTML = data.version;
+  motd.innerHTML = data.motd.clean.join("<br>");
+}
+
+loadStats();
+setInterval(loadStats, 15000); // každých 15s update
+</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
