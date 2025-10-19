@@ -141,50 +141,51 @@ export default async function Page() {
   );
 }
 
-  <!-- Dev Log -->
-  <section id="devlog" class="bg-dark">
-<ul id="devlogList" class="list-group"></ul>
-  </section>
+<!-- Dev Log -->
+<section id="devlog" class="bg-dark py-5">
+  <div class="container">
+    <h2 class="text-center mb-4 text-light">🛠️ Dev Log</h2>
+    <ul id="devlogList" class="list-group"></ul>
+  </div>
+</section>
 
   <footer>
     © 2025 UltraSMP — Všechna práva vyhrazená | Made with ❤️ by zakbrashko
   </footer>
-  <script>
-const apiUrl = "https://ep-spring-bread-a2ainhbq.apirest.eu-central-1.aws.neon.tech/neondb/rest/v1/devlogs";
-const apiKey = "napi_rlq8e22azy95pz3p69hdfarml1oclpwgc1i80g8so7evr2sg3jv47elixe91uqzv";
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-fetch(apiUrl, {
-  headers: {
-    "apikey": apiKey,
-    "Authorization": "Bearer " + apiKey
-  }
-})
-.then(res => {
-  if (!res.ok) throw new Error("Nepodařilo se načíst devlog: " + res.status);
-  return res.json();
-})
-.then(data => {
-  const list = document.getElementById("devlogList");
-  if (!data.length) {
-    list.innerHTML = `<li class="list-group-item bg-dark text-light text-center">Žádné záznamy devlogu</li>`;
-    return;
-  }
+// Nahraď svými hodnotami
+const supabaseUrl = 'https://fmleusbbidhpbymkmxwi.supabase.co'
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtbGV1c2JiaWRocGJ5bWtteHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2MzkzOTMsImV4cCI6MjA3NjIxNTM5M30.xaV3TkFUKD0yKIyEVFEuWswBYN_ikUiSemMvDq5p3gg'
 
-  // Seřadíme podle data sestupně (nové nahoře)
-  data.sort((a,b) => new Date(b.date) - new Date(a.date));
+const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+async function loadDevlogs() {
+  const { data, error } = await supabase
+    .from('devlogs')
+    .select('*')
+    .order('date', { ascending: false })
+
+  const list = document.getElementById('devlogList')
+
+  if (error) {
+    console.error('Chyba při načítání devlogu:', error)
+    list.innerHTML = `<li class="list-group-item bg-dark text-danger">❌ Nepodařilo se načíst devlog</li>`
+    return
+  }
 
   list.innerHTML = data.map(d => `
-    <li class="list-group-item bg-dark text-light mb-2 rounded">
-      <h5 class="mb-1">${d.title}</h5>
+    <li class="list-group-item bg-dark text-light mb-2">
+      <h5>${d.title}</h5>
       <small class="text-muted">${new Date(d.date).toLocaleString()}</small>
-      <p class="mb-0 mt-2">${d.content}</p>
+      <p>${d.content}</p>
     </li>
-  `).join("");
-})
-.catch(err => {
-  console.error(err);
-  document.getElementById("devlogList").innerHTML = `<li class="list-group-item bg-dark text-danger text-center">Nepodařilo se načíst devlog</li>`;
-});
+  `).join('')
+}
+
+// Načíst hned po načtení stránky
+loadDevlogs()
 </script>
 <script>
 async function loadStats() {
@@ -262,6 +263,7 @@ blacklist.forEach(player => {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
 
