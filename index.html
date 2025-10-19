@@ -108,9 +108,12 @@
   </div>
 </section>
 
-<section id="blacklist" class="container my-5">
-  <h2 class="text-center mb-4">🚫 Blacklist hráčů</h2>
-  <ul id="blacklistList" class="list-group"></ul>
+<!-- Dev Log -->
+<section id="devlog" class="bg-dark py-5">
+  <div class="container">
+    <h2 class="text-center text-light mb-4">📝 Dev Log</h2>
+    <ul id="devlogList" class="list-group"></ul>
+  </div>
 </section>
 
 
@@ -124,7 +127,7 @@
   </footer>
   <script>
 const apiUrl = "https://ep-spring-bread-a2ainhbq.apirest.eu-central-1.aws.neon.tech/neondb/rest/v1/devlogs";
-const apiKey = "napi_996i9buosqvnekrc5si4z0hfguojorc4y60byk710e3nfthiq4hksjy6wo028n7a";
+const apiKey = "napi_rlq8e22azy95pz3p69hdfarml1oclpwgc1i80g8so7evr2sg3jv47elixe91uqzv";
 
 fetch(apiUrl, {
   headers: {
@@ -132,18 +135,32 @@ fetch(apiUrl, {
     "Authorization": "Bearer " + apiKey
   }
 })
-.then(res => res.json())
+.then(res => {
+  if (!res.ok) throw new Error("Nepodařilo se načíst devlog: " + res.status);
+  return res.json();
+})
 .then(data => {
   const list = document.getElementById("devlogList");
+  if (!data.length) {
+    list.innerHTML = `<li class="list-group-item bg-dark text-light text-center">Žádné záznamy devlogu</li>`;
+    return;
+  }
+
+  // Seřadíme podle data sestupně (nové nahoře)
+  data.sort((a,b) => new Date(b.date) - new Date(a.date));
+
   list.innerHTML = data.map(d => `
-    <li class="list-group-item bg-dark text-light">
-      <h5>${d.title}</h5>
-      <small>${new Date(d.date).toLocaleString()}</small>
-      <p>${d.content}</p>
+    <li class="list-group-item bg-dark text-light mb-2 rounded">
+      <h5 class="mb-1">${d.title}</h5>
+      <small class="text-muted">${new Date(d.date).toLocaleString()}</small>
+      <p class="mb-0 mt-2">${d.content}</p>
     </li>
   `).join("");
 })
-.catch(err => console.error(err));
+.catch(err => {
+  console.error(err);
+  document.getElementById("devlogList").innerHTML = `<li class="list-group-item bg-dark text-danger text-center">Nepodařilo se načíst devlog</li>`;
+});
 </script>
 <script>
 async function loadStats() {
@@ -221,6 +238,7 @@ blacklist.forEach(player => {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
 
