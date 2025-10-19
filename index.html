@@ -116,22 +116,35 @@
 
   <!-- Dev Log -->
   <section id="devlog" class="bg-dark">
-    <div class="container">
-      <h2 class="text-center mb-4">🧠 Dev Log</h2>
-      <div class="card p-4">
-        <ul>
-          <li><b>17.10.2025:</b> Přidán Vote Crate systém 🎁</li>
-          <li><b>10.10.2025:</b> Update custom itemů (nový Fire Blade)</li>
-          <li><b>03.10.2025:</b> Optimalizace lagů a fix chunk bugů</li>
-          <li><b>27.09.2025:</b> Přidán nový boss – Nether Guardian 💀</li>
-        </ul>
-      </div>
-    </div>
+<ul id="devlogList" class="list-group"></ul>
   </section>
 
   <footer>
     © 2025 UltraSMP — Všechna práva vyhrazená | Made with ❤️ by zakbrashko
   </footer>
+  <script>
+const apiUrl = "https://ep-spring-bread-a2ainhbq.apirest.eu-central-1.aws.neon.tech/neondb/rest/v1/devlogs";
+const apiKey = "napi_996i9buosqvnekrc5si4z0hfguojorc4y60byk710e3nfthiq4hksjy6wo028n7a";
+
+fetch(apiUrl, {
+  headers: {
+    "apikey": apiKey,
+    "Authorization": "Bearer " + apiKey
+  }
+})
+.then(res => res.json())
+.then(data => {
+  const list = document.getElementById("devlogList");
+  list.innerHTML = data.map(d => `
+    <li class="list-group-item bg-dark text-light">
+      <h5>${d.title}</h5>
+      <small>${new Date(d.date).toLocaleString()}</small>
+      <p>${d.content}</p>
+    </li>
+  `).join("");
+})
+.catch(err => console.error(err));
+</script>
 <script>
 async function loadStats() {
   const res = await fetch("https://api.mcsrvstat.us/2/play.ultrasmp.eu");
@@ -208,6 +221,7 @@ blacklist.forEach(player => {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
 
