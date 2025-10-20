@@ -5,18 +5,176 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UltraSMP — Oficiální web</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #02040a;
+      --bg2: #070d1a;
+      --accent: #00e6a8;
+      --accent2: #0078ff;
+      --glass: rgba(255,255,255,0.05);
+      --text: #e4e4e4;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, var(--bg1), var(--bg2));
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .navbar-brand {
+      color: var(--accent);
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .nav-link {
+      transition: 0.3s;
+    }
+    .nav-link:hover {
+      color: var(--accent2) !important;
+      text-shadow: 0 0 10px var(--accent2);
+    }
+
+    /* Section base */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+    section h2 {
+      font-weight: 900;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--accent);
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px var(--accent2);
+    }
+
+    /* Glass cards */
+    .card {
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 15px;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      transition: 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(0,255,180,0.2);
+    }
+
+    /* Info */
+    #info p.lead {
+      max-width: 800px;
+      margin: auto;
+      font-size: 1.2rem;
+      color: #ddd;
+    }
+
+    /* Join steps */
+    #join li {
+      transition: 0.3s;
+    }
+    #join li:hover {
+      background-color: rgba(0,255,200,0.1);
+      transform: scale(1.02);
+    }
+
+    /* Rules */
+    #rules ul {
+      list-style: none;
+      padding: 0;
+    }
+    #rules li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Stats */
+    #stats .card h5 {
+      color: var(--accent);
+    }
+
+    /* Devlog */
+    #devlogList li {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px;
+    }
+    #devlogList li:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* Blacklist */
+    #blacklistList li {
+      background: rgba(255,50,50,0.05);
+      border: 1px solid rgba(255,0,0,0.2);
+      color: #ff7a7a;
+      transition: 0.3s;
+    }
+    #blacklistList li:hover {
+      transform: scale(1.03);
+      background: rgba(255,50,50,0.1);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* Neon Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(var(--accent), var(--accent2));
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* Parallax background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://cdn.wallpapersafari.com/60/14/n9aM0n.jpg') center/cover no-repeat;
+      z-index: -1;
+      opacity: 0.25;
+      filter: blur(5px);
+    }
+  </style>
 </head>
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="#">UltraSMP</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <a class="navbar-brand" href="#">UltraSMP</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div id="navbarNav" class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="#info">Info</a></li>
           <li class="nav-item"><a class="nav-link" href="#join">Jak se napojit</a></li>
@@ -30,35 +188,35 @@
   </nav>
 
   <!-- Info -->
-  <section id="info">
-    <div class="container text-center">
-      <h2 class="mb-4">O serveru</h2>
+  <section id="info" class="text-center">
+    <div class="container mt-5 pt-5">
+      <h2>O serveru</h2>
       <p class="lead">
-        UltraSMP je unikátní survival server s <strong>custom itemy</strong>, <strong>speciálními schopnostmi</strong> a <strong>crate systémem</strong>.  
-        Cíl je jednoduchý – přežij, postav si impérium a ukaž, že patříš mezi elitu SMP světa.
+        UltraSMP je unikátní survival server s <strong>custom itemy</strong>, <strong>speciálními schopnostmi</strong> a <strong>crate systémem</strong>.
+        Vybuduj impérium, přežij a staň se legendou SMP světa ⚔️
       </p>
-      <p>🎮 Verze: <b>1.21.8</b> | 🌍 IP: <b>play.ultrasmp.eu</b> | 💬 Discord: <b>http://dsc.gg/ultrasmpeu</b></p>
+      <p class="mt-4 fs-5">🎮 Verze: <b>1.21.8</b> | 🌍 IP: <b>play.ultrasmp.eu</b> | 💬 Discord: <a href="https://dsc.gg/ultrasmpeu" target="_blank" class="text-decoration-none text-info">dsc.gg/ultrasmpeu</a></p>
     </div>
   </section>
 
-  <!-- Jak se napojit -->
-  <section id="join" class="bg-dark">
-    <div class="container text-center">
-      <h2 class="mb-4">Jak se napojit </h2>
+  <!-- Join -->
+  <section id="join" class="bg-dark text-center">
+    <div class="container">
+      <h2>Jak se napojit</h2>
       <ol class="list-group list-group-numbered text-start mx-auto" style="max-width:600px;">
-        <li class="list-group-item bg-transparent text-light border-secondary">1️⃣ Otevři Minecraft (verze 1.21+)</li>
-        <li class="list-group-item bg-transparent text-light border-secondary">2️⃣ Klikni na „Multiplayer“</li>
-        <li class="list-group-item bg-transparent text-light border-secondary">3️⃣ Dej „Add Server“</li>
-        <li class="list-group-item bg-transparent text-light border-secondary">4️⃣ Napiš IP: <b>play.ultrasmp.eu</b></li>
-        <li class="list-group-item bg-transparent text-light border-secondary">5️⃣ Připoj se a užívej si peklo i ráj zároveň 😈</li>
+        <li class="list-group-item bg-transparent text-light border-secondary">Otevři Minecraft (verze 1.21+)</li>
+        <li class="list-group-item bg-transparent text-light border-secondary">Klikni na „Multiplayer“</li>
+        <li class="list-group-item bg-transparent text-light border-secondary">Dej „Add Server“</li>
+        <li class="list-group-item bg-transparent text-light border-secondary">Napiš IP: <b>play.ultrasmp.eu</b></li>
+        <li class="list-group-item bg-transparent text-light border-secondary">Připoj se a užívej si peklo i ráj zároveň 😈</li>
       </ol>
     </div>
   </section>
 
-  <!-- Pravidla -->
+  <!-- Rules -->
   <section id="rules">
     <div class="container">
-      <h2 class="text-center mb-4">Pravidla</h2>
+      <h2>Pravidla</h2>
       <div class="card p-4">
         <ul>
           <li>❌ Žádné hacky, cheaty nebo modifikace zvyšující výhodu</li>
@@ -71,187 +229,95 @@
     </div>
   </section>
 
-  <!-- Statistiky -->
-<section id="stats" class="bg-dark">
-  <div class="container text-center">
-    <h2 class="mb-4">Statistiky serveru</h2>
-    <div class="row g-4">
-      <div class="col-md-3">
-        <div class="card p-3">
-          <h5>Status</h5>
-          <p id="status" class="fs-5 fw-bold">Načítání...</p>
-        </div>
+  <!-- Stats -->
+  <section id="stats" class="bg-dark text-center">
+    <div class="container">
+      <h2>Statistiky serveru</h2>
+      <div class="row g-4">
+        <div class="col-md-3"><div class="card p-3"><h5>Status</h5><p id="status" class="fs-5 fw-bold">Načítání...</p></div></div>
+        <div class="col-md-3"><div class="card p-3"><h5>Online hráči</h5><p id="onlineCount" class="fs-4 fw-bold">—</p></div></div>
+        <div class="col-md-3"><div class="card p-3"><h5>Max hráčů</h5><p id="maxCount" class="fs-4 fw-bold">—</p></div></div>
+        <div class="col-md-3"><div class="card p-3"><h5>Verze</h5><p id="version" class="fs-4 fw-bold">—</p></div></div>
       </div>
-      <div class="col-md-3">
-        <div class="card p-3">
-          <h5>Online hráči</h5>
-          <p id="onlineCount" class="fs-4 fw-bold">—</p>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card p-3">
-          <h5>Max hráčů</h5>
-          <p id="maxCount" class="fs-4 fw-bold">—</p>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card p-3">
-          <h5>Verze</h5>
-          <p id="version" class="fs-4 fw-bold">—</p>
-        </div>
+      <div class="mt-4 card p-3">
+        <h5>MOTD</h5>
+        <p id="motd" class="fw-semibold">Načítám...</p>
       </div>
     </div>
-    <div class="mt-4 card p-3">
-      <h5>MOTD</h5>
-      <p id="motd" class="fw-semibold">Načítám...</p>
+  </section>
+
+  <!-- Blacklist -->
+  <section id="blacklist" class="text-center">
+    <div class="container">
+      <h2>Blacklist</h2>
+      <ul id="blacklistList" class="list-group mx-auto" style="max-width:600px;"></ul>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- Dev Log -->
+  <section id="devlog" class="bg-dark">
+    <div class="container">
+      <h2>🛠️ Dev Log</h2>
+      <ul id="devlogList" class="list-group"></ul>
+    </div>
+  </section>
 
+  <footer>© 2025 UltraSMP — Všechna práva vyhrazena | Made with ❤️ by zakbrashko</footer>
 
-<!-- Dev Log -->
-<section id="devlog" class="bg-dark py-5">
-  <div class="container">
-    <h2 class="text-center mb-4 text-light">🛠️ Dev Log</h2>
-    <ul id="devlogList" class="list-group"></ul>
-  </div>
-</section>
+  <!-- Scripts -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+    const supabase = createClient('https://fmleusbbidhpbymkmxwi.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtbGV1c2JiaWRocGJ5bWtteHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2MzkzOTMsImV4cCI6MjA3NjIxNTM5M30.xaV3TkFUKD0yKIyEVFEuWswBYN_ikUiSemMvDq5p3gg')
+    async function loadDevlogs() {
+      const { data, error } = await supabase.from('devlogs').select('*').order('date', { ascending: false })
+      const list = document.getElementById('devlogList')
+      if (error) return list.innerHTML = `<li class="list-group-item bg-dark text-danger">❌ Nepodařilo se načíst devlog</li>`
+      list.innerHTML = data.map(d => `<li class="list-group-item bg-dark text-light mb-2">
+        <h5>${d.title}</h5><small class="text-muted">${new Date(d.date).toLocaleString()}</small><p>${d.content}</p></li>`).join('')
+    }
+    loadDevlogs()
+  </script>
 
-  <footer>
-    © 2025 UltraSMP — Všechna práva vyhrazená | Made with ❤️ by zakbrashko
-  </footer>
-<script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+  <script>
+    async function loadStats() {
+      const res = await fetch("https://api.mcsrvstat.us/2/play.ultrasmp.eu");
+      const data = await res.json();
+      const online = document.getElementById("onlineCount");
+      const max = document.getElementById("maxCount");
+      const version = document.getElementById("version");
+      const motd = document.getElementById("motd");
+      const status = document.getElementById("status");
+      if (!data.online) {
+        status.innerHTML = "🔴 Offline";
+        online.innerHTML = "0";
+        max.innerHTML = "-";
+        version.innerHTML = "—";
+        motd.innerHTML = "Server nedostupný";
+        return;
+      }
+      status.innerHTML = "🟢 Online";
+      online.innerHTML = data.players.online;
+      max.innerHTML = data.players.max;
+      version.innerHTML = data.version;
+      motd.innerHTML = data.motd.clean.join("<br>");
+    }
+    loadStats();
+    setInterval(loadStats, 15000);
 
-// Nahraď svými hodnotami
-const supabaseUrl = 'https://fmleusbbidhpbymkmxwi.supabase.co'
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtbGV1c2JiaWRocGJ5bWtteHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2MzkzOTMsImV4cCI6MjA3NjIxNTM5M30.xaV3TkFUKD0yKIyEVFEuWswBYN_ikUiSemMvDq5p3gg'
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
-
-async function loadDevlogs() {
-  const { data, error } = await supabase
-    .from('devlogs')
-    .select('*')
-    .order('date', { ascending: false })
-
-  const list = document.getElementById('devlogList')
-
-  if (error) {
-    console.error('Chyba při načítání devlogu:', error)
-    list.innerHTML = `<li class="list-group-item bg-dark text-danger">❌ Nepodařilo se načíst devlog</li>`
-    return
-  }
-
-  list.innerHTML = data.map(d => `
-    <li class="list-group-item bg-dark text-light mb-2">
-      <h5>${d.title}</h5>
-      <small class="text-muted">${new Date(d.date).toLocaleString()}</small>
-      <p>${d.content}</p>
-    </li>
-  `).join('')
-}
-
-// Načíst hned po načtení stránky
-loadDevlogs()
-</script>
-<script>
-async function loadStats() {
-  const res = await fetch("https://api.mcsrvstat.us/2/play.ultrasmp.eu");
-  const data = await res.json();
-
-  const online = document.getElementById("onlineCount");
-  const max = document.getElementById("maxCount");
-  const version = document.getElementById("version");
-  const motd = document.getElementById("motd");
-  const status = document.getElementById("status");
-
-  if (!data.online) {
-    status.innerHTML = "🔴 Offline";
-    online.innerHTML = "0";
-    max.innerHTML = "-";
-    version.innerHTML = "—";
-    motd.innerHTML = "Server nedostupný";
-    return;
-  }
-
-  status.innerHTML = "🟢 Online";
-  online.innerHTML = data.players.online;
-  max.innerHTML = data.players.max;
-  version.innerHTML = data.version;
-  motd.innerHTML = data.motd.clean.join("<br>");
-}
-
-loadStats();
-setInterval(loadStats, 15000); // každých 15s update
-</script>
-<script>
-// Statický blacklist
-const blacklist = [ 
+    const blacklist = [ 
       {name: "z0yn3_", reason: "Cheating"},
       {name: "NoobMaster69", reason: "Trolling"},
       {name: "EpicFail", reason: "Griefing"}
     ];
-
-    const list = document.getElementById("blacklist-list");
-
-    blacklist.forEach(entry => {
+    const listElement = document.getElementById("blacklistList");
+    blacklist.forEach(player => {
       const li = document.createElement("li");
-
-      const nameSpan = document.createElement("span");
-      nameSpan.textContent = entry.name;
-      nameSpan.classList.add("name");
-
-      const reasonSpan = document.createElement("span");
-      reasonSpan.textContent = ` - ${entry.reason}`;
-      reasonSpan.classList.add("reason");
-
-      li.appendChild(nameSpan);
-      li.appendChild(reasonSpan);
-      list.appendChild(li);
+      li.className = "list-group-item d-flex justify-content-between align-items-center";
+      li.innerHTML = `<span>${player.name}</span><span class="badge bg-danger rounded-pill">${player.reason}</span>`;
+      listElement.appendChild(li);
     });
-  
-  const blacklist = [ 
-  {name: "z0yn3_", reason: "Cheating"},
-  {name: "NoobMaster69", reason: "Trolling"},
-  {name: "EpicFail", reason: "Griefing"}
-];
-
-// Funkce pro vykreslení
-const listElement = document.getElementById("blacklistList");
-
-blacklist.forEach(player => {
-  const li = document.createElement("li");
-  li.className = "list-group-item d-flex justify-content-between align-items-center";
-  li.innerHTML = `<span>${player.name}</span><span class="badge bg-danger rounded-pill">${player.reason}</span>`;
-  listElement.appendChild(li);
-});
-</script>
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
