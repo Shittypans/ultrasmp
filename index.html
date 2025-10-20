@@ -7,121 +7,236 @@
 
   <!-- Bootstrap + Fonts + Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <style>
-    :root{
-      --bg1:#02040a; --bg2:#070d1a; --text:#e4e4e4;
-      --accent:#00e6a8; --accent2:#0078ff; --glass:rgba(255,255,255,0.06);
-      --card-border:rgba(255,255,255,0.08); --muted:#a8b3c7;
+    :root {
+      --bg1: #05080f;
+      --bg2: #0b1222;
+      --accent: #00ffc3;
+      --accent2: #5ab3ff;
+      --glass: rgba(255,255,255,0.08);
+      --text: #eaeaea;
+      --muted: #8e9bb0;
+      --radius: 22px;
     }
-    [data-theme="light"]{
-      --bg1:#f6f9ff; --bg2:#eaf0ff; --text:#0e1320;
-      --glass:rgba(0,0,0,0.04); --card-border:rgba(0,0,0,0.08); --muted:#5c667a;
-    }
-    *{box-sizing:border-box;font-family:Montserrat,system-ui,Arial;scroll-behavior:smooth}
-    body{background: radial-gradient(circle at 10% 10%, var(--bg1), var(--bg2)); color:var(--text); overflow-x:hidden}
-    a{color:inherit}
 
-    /* Progress bar (scroll) */
-    #scrollProgress{
-      position:fixed; top:0; left:0; height:3px; width:0;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      z-index:9999; box-shadow:0 0 12px var(--accent2);
-      transition:width .1s linear;
+    [data-theme="light"] {
+      --bg1: #f5f7fb;
+      --bg2: #eef3ff;
+      --text: #1e1e2f;
+      --glass: rgba(0,0,0,0.04);
+      --muted: #556070;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, var(--bg1), var(--bg2));
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Global style */
+    .card {
+      border: none;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius);
+      box-shadow: 0 0 30px rgba(0,0,0,0.25);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px rgba(0,255,200,0.15);
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    section h2 {
+      text-align: center;
+      font-weight: 800;
+      color: var(--accent);
+      text-shadow: 0 0 15px rgba(0,255,200,0.3);
+      letter-spacing: 1px;
+      margin-bottom: 40px;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--accent2);
+      transition: 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent);
     }
 
     /* Navbar */
-    .navbar{ background:rgba(0,0,0,0.35); backdrop-filter: blur(10px); border-bottom:1px solid var(--card-border) }
-    [data-theme="light"] .navbar{ background:rgba(255,255,255,0.65) }
-    .navbar-brand{ color:var(--accent); font-weight:900; letter-spacing:1px }
-    .nav-link{ transition:.25s }
-    .nav-link:hover{ color:var(--accent2)!important; text-shadow:0 0 10px var(--accent2) }
-
-    /* Sections */
-    section{ padding:100px 0; position:relative }
-    section h2{
-      font-weight:900; text-transform:uppercase; text-align:center; margin-bottom:40px;
-      color:var(--accent); letter-spacing:.5px; text-shadow:0 0 10px color-mix(in oklab, var(--accent2) 50%, transparent);
+    .navbar {
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-radius: 0 0 var(--radius) var(--radius);
     }
 
-    /* Cards */
-    .card{
-      background:var(--glass); border:1px solid var(--card-border); color:var(--text);
-      border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.25); transition:.25s;
+    .navbar-brand {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 1.4rem;
     }
-    .card:hover{ transform:translateY(-4px); box-shadow:0 18px 40px rgba(0,0,0,.35) }
+
+    .nav-link {
+      border-radius: var(--radius);
+      margin: 0 5px;
+      padding: 8px 15px !important;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover {
+      background: var(--accent);
+      color: #000 !important;
+    }
 
     /* Info */
-    #info p.lead{ max-width:900px; margin:auto; font-size:1.15rem; color:var(--muted) }
+    #info .lead {
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
 
-    /* Join list */
-    #join li{ transition:.25s }
-    #join li:hover{ background:rgba(0,255,200,.08); transform:scale(1.02) }
+    /* Join */
+    #join li {
+      border-radius: var(--radius);
+      border-color: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      transition: 0.3s;
+    }
 
-    /* Devlog */
-    #devlogList .accordion-button{ background:transparent; color:var(--text); font-weight:700 }
-    #devlogList .accordion-item{ background:transparent; border:1px solid var(--card-border); border-radius:12px; overflow:hidden }
+    #join li:hover {
+      transform: scale(1.02);
+      background: rgba(0,255,200,0.1);
+    }
+
+    /* Stats */
+    #stats .card {
+      border-radius: var(--radius);
+    }
+
+    /* Buttons */
+    .btn {
+      border-radius: var(--radius);
+      font-weight: 600;
+      padding: 10px 18px;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--accent2);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+    }
 
     /* Blacklist */
-    #blacklistList .list-group-item{
-      background:transparent; border:1px solid var(--card-border); color:var(--text);
+    #blacklistList .list-group-item {
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      border: none;
+      background: rgba(255,255,255,0.05);
+      transition: 0.3s;
+    }
+
+    #blacklistList .list-group-item:hover {
+      background: rgba(0,255,200,0.08);
+      transform: scale(1.02);
     }
 
     /* Footer */
-    footer{ text-align:center; padding:20px; color:var(--muted); background:rgba(0,0,0,.35); backdrop-filter: blur(6px); border-top:1px solid var(--card-border) }
-    [data-theme="light"] footer{ background:rgba(255,255,255,.5) }
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      background: rgba(0,0,0,0.4);
+      border-radius: var(--radius) var(--radius) 0 0;
+      backdrop-filter: blur(10px);
+    }
 
     /* Scrollbar */
-    ::-webkit-scrollbar{ width:10px } ::-webkit-scrollbar-track{ background:rgba(255,255,255,.05) }
-    ::-webkit-scrollbar-thumb{ background:linear-gradient(var(--accent),var(--accent2)); border-radius:10px }
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(var(--accent), var(--accent2));
+      border-radius: var(--radius);
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+    }
 
     /* Parallax bg */
-    body::before{
-      content:""; position:fixed; inset:0; z-index:-1; opacity:.22; filter:blur(6px);
-      background:url('https://images.unsplash.com/photo-1614149162883-504ce4d13909?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
-    }
-    [data-theme="light"] body::before{ opacity:.12; filter:blur(3px) }
-
-    /* Floating utilities */
-    #toTop{
-      position:fixed; right:18px; bottom:18px; z-index:999;
-      display:none;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.25;
+      background: url('https://cdn.wallpapersafari.com/60/14/n9aM0n.jpg') center/cover no-repeat;
+      filter: blur(6px);
     }
 
-    /* Reveal animations */
-    .reveal{ opacity:0; transform: translateY(22px); transition: .6s ease }
-    .reveal.in{ opacity:1; transform: none }
+    /* Smooth reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
 
-    /* Tiny helpers */
-    .muted{ color:var(--muted) }
-    .kbd{ padding:.15rem .35rem; background:rgba(255,255,255,.08); border:1px solid var(--card-border); border-radius:6px }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    #scrollProgress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0;
+      z-index: 9999;
+      border-radius: var(--radius);
+      background: linear-gradient(90deg,var(--accent),var(--accent2));
+      box-shadow: 0 0 12px var(--accent);
+      transition: width 0.15s linear;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Scroll progress -->
+  <!-- Scroll Progress -->
   <div id="scrollProgress"></div>
 
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">UltraSMP</a>
-
-      <div class="d-flex gap-2 order-lg-2">
-        <div class="d-none d-md-flex align-items-center px-2 muted">
-          <i class="bi bi-clock me-1"></i><span id="clock">--:--</span>
-        </div>
-        <button id="themeToggle" class="btn btn-outline-light btn-sm" title="Přepnout téma">
-          <i class="bi bi-moon-stars"></i>
-        </button>
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div id="navbarNav" class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="#info">Info</a></li>
@@ -130,58 +245,45 @@
           <li class="nav-item"><a class="nav-link" href="#stats">Statistiky</a></li>
           <li class="nav-item"><a class="nav-link" href="#blacklist">Blacklist</a></li>
           <li class="nav-item"><a class="nav-link" href="#devlog">Dev Log</a></li>
-          <li class="nav-item"><a class="nav-link" href="#discord">Discord</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Hero / Info -->
-  <section id="info" class="text-center">
-    <div class="container mt-5 pt-5 reveal">
+  <!-- Info -->
+  <section id="info" class="text-center mt-5 pt-5 reveal">
+    <div class="container">
       <h2>O serveru</h2>
       <p class="lead">
         UltraSMP je unikátní survival server s <strong>custom itemy</strong>, <strong>speciálními schopnostmi</strong> a <strong>crate systémem</strong>.
         Vybuduj impérium, přežij a staň se legendou SMP světa ⚔️
       </p>
-      <div class="d-flex flex-column flex-md-row gap-2 justify-content-center align-items-center mt-4">
-        <div class="card px-3 py-2">
-          <span class="muted me-1">Verze:</span><b>1.21.8</b>
-        </div>
-        <div class="card px-3 py-2 d-flex align-items-center">
-          <span class="muted me-2"><i class="bi bi-hdd-network"></i> IP:</span>
-          <code id="serverIP" class="kbd">play.ultrasmp.eu</code>
-          <button id="copyIP" class="btn btn-sm btn-success ms-2"><i class="bi bi-clipboard"></i> Kopírovat</button>
-        </div>
-        <a href="https://dsc.gg/ultrasmpeu" target="_blank" class="btn btn-primary"><i class="bi bi-discord"></i> Discord</a>
+      <div class="mt-4">
+        <button id="copyIP" class="btn btn-primary">Kopírovat IP: play.ultrasmp.eu</button>
       </div>
     </div>
   </section>
 
   <!-- Join -->
-  <section id="join" class="bg-dark text-center">
-    <div class="container reveal">
+  <section id="join" class="bg-dark text-center reveal">
+    <div class="container">
       <h2>Jak se napojit</h2>
-      <ol class="list-group list-group-numbered text-start mx-auto" style="max-width:650px;">
-        <li class="list-group-item bg-transparent text-light border-secondary">Otevři Minecraft (verze 1.21+)</li>
-        <li class="list-group-item bg-transparent text-light border-secondary">Klikni na „Multiplayer“</li>
-        <li class="list-group-item bg-transparent text-light border-secondary">Dej „Add Server“</li>
-        <li class="list-group-item bg-transparent text-light border-secondary d-flex justify-content-between align-items-center">
-          Zadej IP: <b>play.ultrasmp.eu</b>
-          <button class="btn btn-outline-info btn-sm" onclick="copyText('play.ultrasmp.eu')"><i class="bi bi-clipboard2"></i></button>
-        </li>
-        <li class="list-group-item bg-transparent text-light border-secondary">Připoj se a užívej si peklo i ráj zároveň 😈</li>
+      <ol class="list-group list-group-numbered text-start mx-auto" style="max-width:600px;">
+        <li class="list-group-item text-light">Otevři Minecraft (verze 1.21+)</li>
+        <li class="list-group-item text-light">Klikni na „Multiplayer“</li>
+        <li class="list-group-item text-light">Dej „Add Server“</li>
+        <li class="list-group-item text-light">Napiš IP: <b>play.ultrasmp.eu</b></li>
+        <li class="list-group-item text-light">Připoj se a užívej si peklo i ráj zároveň 😈</li>
       </ol>
-      <small class="d-block mt-3 muted">Tip: <span class="kbd">Ctrl</span> + <span class="kbd">V</span> po kopírování IP</small>
     </div>
   </section>
 
   <!-- Rules -->
-  <section id="rules">
-    <div class="container reveal">
+  <section id="rules" class="reveal">
+    <div class="container">
       <h2>Pravidla</h2>
       <div class="card p-4">
-        <ul class="mb-0">
+        <ul>
           <li>❌ Žádné hacky, cheaty nebo modifikace zvyšující výhodu</li>
           <li>🔥 Griefing povolen pouze mimo chráněné oblasti</li>
           <li>💬 Respektuj ostatní hráče a staff</li>
@@ -193,326 +295,69 @@
   </section>
 
   <!-- Stats -->
-  <section id="stats" class="bg-dark text-center">
-    <div class="container reveal">
+  <section id="stats" class="bg-dark text-center reveal">
+    <div class="container">
       <h2>Statistiky serveru</h2>
-
-      <!-- Quick status -->
       <div class="row g-4">
-        <div class="col-6 col-md-3">
-          <div class="card p-3">
-            <h5>Status</h5>
-            <p id="status" class="fs-5 fw-bold d-flex align-items-center justify-content-center gap-2">
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Načítání...
-            </p>
-          </div>
-        </div>
-        <div class="col-6 col-md-3"><div class="card p-3"><h5>Online hráči</h5><p id="onlineCount" class="fs-4 fw-bold">—</p></div></div>
-        <div class="col-6 col-md-3"><div class="card p-3"><h5>Max hráčů</h5><p id="maxCount" class="fs-4 fw-bold">—</p></div></div>
-        <div class="col-6 col-md-3"><div class="card p-3"><h5>Verze</h5><p id="version" class="fs-5 fw-bold">—</p></div></div>
-      </div>
-
-      <!-- MOTD -->
-      <div class="mt-4 card p-3 text-start">
-        <div class="d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">MOTD</h5>
-          <button id="refreshStats" class="btn btn-outline-light btn-sm"><i class="bi bi-arrow-clockwise"></i> Obnovit</button>
-        </div>
-        <p id="motd" class="fw-semibold mt-2">Načítám...</p>
-      </div>
-
-      <!-- Live graph -->
-      <div class="card mt-4 p-3">
-        <div class="d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">Live hráči (posledních ~5 min)</h5>
-          <small class="muted">Auto-refresh každých 15s</small>
-        </div>
-        <canvas id="playersChart" height="120"></canvas>
+        <div class="col-md-3"><div class="card p-3"><h5>Status</h5><p id="status">Načítání...</p></div></div>
+        <div class="col-md-3"><div class="card p-3"><h5>Online</h5><p id="onlineCount">—</p></div></div>
+        <div class="col-md-3"><div class="card p-3"><h5>Max</h5><p id="maxCount">—</p></div></div>
+        <div class="col-md-3"><div class="card p-3"><h5>Verze</h5><p id="version">—</p></div></div>
       </div>
     </div>
   </section>
 
   <!-- Blacklist -->
-  <section id="blacklist" class="text-center">
-    <div class="container reveal">
+  <section id="blacklist" class="text-center reveal">
+    <div class="container">
       <h2>Blacklist</h2>
-      <div class="row justify-content-center mb-3">
-        <div class="col-md-6">
-          <input id="blacklistSearch" class="form-control" placeholder="Hledat hráče nebo důvod (live filtr)..." />
-        </div>
-      </div>
-      <ul id="blacklistList" class="list-group mx-auto" style="max-width:700px;"></ul>
-      <small class="d-block mt-2 muted">Tip: napiš třeba „cheat“ nebo jméno</small>
+      <ul id="blacklistList" class="list-group mx-auto" style="max-width:600px;"></ul>
     </div>
   </section>
 
-  <!-- Dev Log -->
-  <section id="devlog" class="bg-dark">
-    <div class="container reveal">
-      <h2>🛠️ Dev Log</h2>
-      <div id="devlogList" class="accordion"></div>
-    </div>
-  </section>
-
-  <!-- Discord -->
-  <section id="discord">
-    <div class="container reveal">
-      <h2>Discord</h2>
-      <div class="card p-3">
-        <!-- Pokud znáš server ID, nahraď YOUR_SERVER_ID níže -->
-        <div class="ratio ratio-16x9">
-          <iframe id="discordWidget" src="https://discord.com/widget?id=YOUR_SERVER_ID&theme=dark"
-                  allowtransparency="true" frameborder="0"></iframe>
-        </div>
-        <small class="muted d-block mt-2">Nemáš widget ID? V Discordu: Nastavení serveru → Widget → „ID Serveru“. Nebo nech jen tlačítko nahoře.</small>
-      </div>
-    </div>
-  </section>
-
+  <!-- Footer -->
   <footer>© 2025 UltraSMP — Všechna práva vyhrazena | Made with ❤️ by zakbrashko</footer>
 
-  <!-- Scroll to top -->
-  <button id="toTop" class="btn btn-primary btn-lg rounded-circle shadow">
-    <i class="bi bi-arrow-up"></i>
-  </button>
-
-  <!-- Toasts -->
-  <div class="position-fixed bottom-0 end-0 p-3" style="z-index:1060">
-    <div id="toastContainer"></div>
-  </div>
-
-  <!-- Supabase Devlog loader -->
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-    const supabase = createClient(
-      'https://fmleusbbidhpbymkmxwi.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtbGV1c2JiaWRocGJ5bWtteHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2MzkzOTMsImV4cCI6MjA3NjIxNTM5M30.xaV3TkFUKD0yKIyEVFEuWswBYN_ikUiSemMvDq5p3gg'
-    );
-
-    async function loadDevlogs(){
-      const { data, error } = await supabase.from('devlogs').select('*').order('date', { ascending:false });
-      const root = document.getElementById('devlogList');
-      if(error){
-        root.innerHTML = `<div class="alert alert-danger">❌ Nepodařilo se načíst devlog.</div>`;
-        return;
-      }
-      if(!data || !data.length){
-        root.innerHTML = `<div class="alert alert-secondary">Zatím tu nic není. Brzy doplníme 👀</div>`;
-        return;
-      }
-      root.innerHTML = data.map((d,i)=>`
-        <div class="accordion-item mb-2">
-          <h2 class="accordion-header" id="dev-h-${i}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dev-c-${i}" aria-expanded="false" aria-controls="dev-c-${i}">
-              ${d.title} — <small class="ms-2 text-muted">${new Date(d.date).toLocaleString()}</small>
-            </button>
-          </h2>
-          <div id="dev-c-${i}" class="accordion-collapse collapse" aria-labelledby="dev-h-${i}">
-            <div class="accordion-body">
-              ${d.content}
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-    loadDevlogs();
-  </script>
-
-  <!-- Main scripts -->
   <script>
-    /* ===== Utils ===== */
-    const $ = sel => document.querySelector(sel);
-    const $$ = sel => document.querySelectorAll(sel);
-
-    /* Toast system */
-    function showToast(msg, type='success'){
-      const id = `t_${Date.now()}`;
-      const node = document.createElement('div');
-      node.className = `toast align-items-center text-bg-${type==='success'?'success':type==='error'?'danger':'info'} border-0`;
-      node.id = id;
-      node.role = "alert"; node.ariaLive="assertive"; node.ariaAtomic="true";
-      node.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${msg}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>`;
-      $('#toastContainer').appendChild(node);
-      const t = new bootstrap.Toast(node, { delay: 2200 });
-      t.show();
-      node.addEventListener('hidden.bs.toast', ()=> node.remove());
-    }
-
-    /* Copy helpers */
-    async function copyText(text){
-      try{ await navigator.clipboard.writeText(text); showToast('Zkopírováno do schránky ✅'); }
-      catch{ showToast('Nepodařilo se kopírovat 😿','error'); }
-    }
-    $('#copyIP')?.addEventListener('click', ()=> copyText($('#serverIP').textContent.trim()));
-
-    /* ===== Theme ===== */
-    function applyTheme(t){
-      document.documentElement.setAttribute('data-theme', t);
-      localStorage.setItem('theme', t);
-      $('#themeToggle').innerHTML = t==='dark' ? '<i class="bi bi-moon-stars"></i>' : '<i class="bi bi-sun"></i>';
-    }
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    applyTheme(localStorage.getItem('theme') || (prefersDark?'dark':'light'));
-    $('#themeToggle').addEventListener('click', ()=> {
-      applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
-    });
-
-    /* ===== Clock (Europe/Prague) ===== */
-    function tickClock(){
-      try{
-        const now = new Date();
-        const fmt = new Intl.DateTimeFormat('cs-CZ',{ hour:'2-digit', minute:'2-digit' });
-        $('#clock').textContent = fmt.format(now);
-      }catch{}
-    }
-    tickClock(); setInterval(tickClock, 1000);
-
-    /* ===== Scroll progress + toTop ===== */
-    function updateProgress(){
-      const scrolled = window.scrollY;
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
       const height = document.body.scrollHeight - window.innerHeight;
-      const w = Math.min(100, Math.max(0, (scrolled/height)*100));
-      $('#scrollProgress').style.width = w + '%';
-      $('#toTop').style.display = (scrolled>600)?'block':'none';
-    }
-    document.addEventListener('scroll', updateProgress, { passive:true });
-    updateProgress();
-    $('#toTop').addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
-
-    /* ===== Reveal animations ===== */
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-    },{ threshold: .15 });
-    $$('.reveal').forEach(el=> io.observe(el));
-
-    /* ===== Server Stats + Live Chart ===== */
-    const API_URL = "https://api.mcsrvstat.us/2/play.ultrasmp.eu";
-    const points = []; // { t: Date, n: number }
-    const ctx = document.getElementById('playersChart');
-    const playersChart = new Chart(ctx, {
-      type:'line',
-      data:{ labels:[], datasets:[{ label:'Hráči online', data:[], tension:.35, fill:true }]},
-      options:{
-        responsive:true,
-        scales:{
-          x:{ ticks:{ color:'var(--muted)' } },
-          y:{ beginAtZero:true, ticks:{ stepSize:1, color:'var(--muted)' } }
-        },
-        plugins:{ legend:{ labels:{ color:'var(--muted)' } } }
-      }
+      const progress = (scrollTop / height) * 100;
+      document.getElementById('scrollProgress').style.width = progress + "%";
     });
 
-    async function fetchStats(){
-      try{
-        $('#status').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Aktualizuji...`;
-        const res = await fetch(API_URL, { cache:'no-store' });
-        const data = await res.json();
+    // Copy IP
+    document.getElementById("copyIP").onclick = () => {
+      navigator.clipboard.writeText("play.ultrasmp.eu");
+      alert("✅ IP adresa zkopírována!");
+    };
 
-        if(!data.online){
-          $('#status').innerHTML = '🔴 Offline';
-          $('#onlineCount').textContent = '0';
-          $('#maxCount').textContent = '-';
-          $('#version').textContent = '—';
-          $('#motd').innerHTML = 'Server nedostupný';
-          pushPoint(0);
-          return;
-        }
-
-        $('#status').innerHTML = '🟢 Online';
-        $('#onlineCount').textContent = data.players?.online ?? 0;
-        $('#maxCount').textContent = data.players?.max ?? '-';
-        $('#version').textContent = data.version ?? '—';
-        $('#motd').innerHTML = Array.isArray(data.motd?.clean) ? data.motd.clean.join('<br>') : (data.motd?.clean || '—');
-
-        pushPoint(Number(data.players?.online ?? 0));
-      }catch(e){
-        $('#status').innerHTML = '⚠️ Chyba API';
-        showToast('Nepodařilo se načíst statistiky.', 'error');
-      }
-    }
-
-    function pushPoint(n){
-      const now = new Date();
-      points.push({ t: now, n });
-      // drž posledních ~20 bodů (~5 min při 15s intervalu)
-      while(points.length>20) points.shift();
-      playersChart.data.labels = points.map(p=> p.t.toLocaleTimeString('cs-CZ',{ minute:'2-digit', second:'2-digit'}));
-      playersChart.data.datasets[0].data = points.map(p=> p.n);
-      playersChart.update();
-    }
-
-    fetchStats();
-    const statsTimer = setInterval(fetchStats, 15000);
-    $('#refreshStats').addEventListener('click', fetchStats);
-
-    /* ===== Blacklist w/ search ===== */
-    const blacklistData = [
-      {name:"z0yn3_", reason:"Cheating"},
-      {name:"NoobMaster69", reason:"Trolling"},
-      {name:"EpicFail", reason:"Griefing"},
-      {name:"TestPlayer", reason:"Toxicita"},
-      {name:"ItemDupeGuy", reason:"Duping"},
+    // Blacklist
+    const blacklist = [
+      { name: "z0yn3_", reason: "Cheating" },
+      { name: "NoobMaster69", reason: "Trolling" },
+      { name: "EpicFail", reason: "Griefing" }
     ];
-    const blRoot = $('#blacklistList');
-    function renderBL(filter=''){
-      const f = filter.trim().toLowerCase();
-      const items = blacklistData.filter(x => !f || x.name.toLowerCase().includes(f) || x.reason.toLowerCase().includes(f));
-      blRoot.innerHTML = items.map(x=>`
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span>${x.name}</span>
-          <span class="badge ${badgeByReason(x.reason)} rounded-pill">${x.reason}</span>
-        </li>
-      `).join('') || `<li class="list-group-item text-center muted">Nic nenalezeno</li>`;
-    }
-    function badgeByReason(reason){
-      const r = reason.toLowerCase();
-      if(r.includes('cheat')||r.includes('dupe')) return 'bg-danger';
-      if(r.includes('troll')||r.includes('toxic')) return 'bg-warning text-dark';
-      return 'bg-secondary';
-    }
-    renderBL();
-    $('#blacklistSearch').addEventListener('input', e=> renderBL(e.target.value));
 
-    /* ===== Discord widget fallback theme ===== */
-    function updateDiscordTheme(){
-      const t = document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';
-      const id = ($('#discordWidget').src.match(/id=([^&]+)/)||[])[1] || 'YOUR_SERVER_ID';
-      $('#discordWidget').src = `https://discord.com/widget?id=${id}&theme=${t}`;
-    }
-    updateDiscordTheme();
-    // Update on theme change
-    const origApply = applyTheme;
-    window.applyTheme = (t)=>{ origApply(t); updateDiscordTheme(); };
+    const list = document.getElementById("blacklistList");
+    blacklist.forEach(player => {
+      const li = document.createElement("li");
+      li.className = "list-group-item d-flex justify-content-between align-items-center text-light";
+      li.innerHTML = `<span>${player.name}</span><span class="badge bg-danger rounded-pill">${player.reason}</span>`;
+      list.appendChild(li);
+    });
 
-    /* ===== Ambient toggle (optional) ===== */
-    // jednoduchý ambient bez auto-play (uživatel si pustí sám)
-    const ambient = new Audio('https://cdn.pixabay.com/download/audio/2022/10/21/audio_8a9f5b0d06.mp3?filename=ambient-piano-124841.mp3');
-    ambient.loop = true;
-    // přidáme tlačítko vedle Discordu, nebudeme to přehánět :)
-    (function addAmbientBtn(){
-      const target = document.querySelector('#info .container .d-flex');
-      if(!target) return;
-      const btn = document.createElement('button');
-      btn.className = 'btn btn-outline-secondary';
-      btn.innerHTML = '<i class="bi bi-soundwave"></i> Ambient';
-      btn.onclick = async ()=>{
-        try{
-          if(ambient.paused){ await ambient.play(); btn.classList.replace('btn-outline-secondary','btn-outline-success'); showToast('Ambient zapnut 🎧'); }
-          else { ambient.pause(); btn.classList.replace('btn-outline-success','btn-outline-secondary'); showToast('Ambient vypnut'); }
-        }catch{ showToast('Nelze přehrát zvuk (prohlížeč to blokuje).','error'); }
-      };
-      target.appendChild(btn);
-    })();
-
-    /* ===== Cleanups on unload ===== */
-    window.addEventListener('beforeunload', ()=> clearInterval(statsTimer));
+    // Reveal animation
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add("in");
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
   </script>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
