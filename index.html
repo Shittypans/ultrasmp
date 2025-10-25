@@ -51,7 +51,7 @@
 
     header {
       width: 100%;
-      max-width: 1000px;
+      max-width: 1100px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -59,12 +59,26 @@
       backdrop-filter: blur(10px);
       border-radius: var(--radius);
       padding: 15px 25px;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
     }
 
     header h1 {
       font-weight: 800;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      margin: 0 10px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
       color: var(--accent);
     }
 
@@ -75,6 +89,7 @@
       padding: 8px 16px;
       border: none;
       transition: all 0.3s;
+      font-weight: 600;
     }
 
     .btn-theme:hover {
@@ -86,14 +101,22 @@
       background: var(--glass);
       border: none;
       border-radius: var(--radius);
-      padding: 25px;
+      padding: 30px;
       backdrop-filter: blur(8px);
       color: var(--text);
-      transition: transform 0.3s;
+      transition: transform 0.3s, background 0.3s;
     }
 
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.1);
+    }
+
+    section {
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 40px;
+      animation: fadeIn 0.8s ease forwards;
     }
 
     footer {
@@ -112,43 +135,83 @@
     a:hover {
       color: var(--accent2);
     }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
 
   <header>
     <h1>UltraSMP</h1>
-    <button class="btn-theme" id="themeToggle"><i class="bi bi-sun-fill"></i> Režim</button>
+    <nav>
+      <a href="#about">O serveru</a>
+      <a href="#news">Novinky</a>
+      <a href="#links">Odkazy</a>
+    </nav>
+    <button class="btn-theme" id="themeToggle"><i class="bi bi-sun-fill"></i></button>
   </header>
 
-  <div class="container text-center">
-    <div class="card mb-4">
-      <h2 class="mb-3">Vítej na oficiálním webu UltraSMP!</h2>
-      <p>Tady najdeš všechny informace o serveru, novinky, speciální eventy a exkluzivní itemy. 🌌</p>
+  <section id="welcome" class="text-center">
+    <div class="card">
+      <h2 class="mb-3">🌌 Vítej na oficiálním webu UltraSMP!</h2>
+      <p>Najdeš tu všechny informace o serveru, novinky, speciální eventy a exkluzivní itemy.</p>
     </div>
+  </section>
 
-    <div class="card mb-4">
+  <section id="about">
+    <div class="card">
       <h3>💎 O serveru</h3>
-      <p>UltraSMP je survival server s <strong>custom itemy</strong>, <strong>eventy</strong> a <strong>crate systémem</strong>.
-      Každý hráč může získat unikátní schopnosti a předměty.</p>
-    </div>
-
-    <div class="card mb-4">
-      <h3>🌐 Odkazy</h3>
       <p>
-        <a href="#">Discord</a> • 
-        <a href="#">Vote</a> • 
-        <a href="#">Obchod</a> • 
-        <a href="#">Wiki</a>
+        UltraSMP je survival server s <strong>custom itemy</strong>, <strong>eventy</strong> a <strong>crate systémem</strong>.<br>
+        Hráči mohou objevovat svět, bojovat, získávat vzácné schopnosti a obchodovat s ostatními.
+      </p>
+      <p>
+        Server běží 24/7, má <span style="color:var(--accent2)">vlastní pluginy</span> a <span style="color:var(--accent2)">unikátní ekonomiku</span>.
       </p>
     </div>
-  </div>
+  </section>
+
+  <section id="news">
+    <div class="card">
+      <h3>📰 Novinky</h3>
+      <ul class="list-unstyled">
+        <li>⭐ Nové <strong>Vote Crate</strong> odměny přidány!</li>
+        <li>⚙️ Custom itemy získaly nové efekty a particle animace.</li>
+        <li>🎉 Připravujeme speciální <strong>Halloween event</strong> s limitovanými odměnami!</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="links">
+    <div class="card text-center">
+      <h3>🌐 Odkazy</h3>
+      <p>
+        <a href="#" class="mx-2"><i class="bi bi-discord"></i> Discord</a>
+        <a href="#" class="mx-2"><i class="bi bi-gift"></i> Vote</a>
+        <a href="#" class="mx-2"><i class="bi bi-cart3"></i> Obchod</a>
+        <a href="#" class="mx-2"><i class="bi bi-journal-text"></i> Wiki</a>
+      </p>
+    </div>
+  </section>
 
   <footer>
     © 2025 UltraSMP — Všechna práva vyhrazena
   </footer>
 
   <script>
+    // Přepínání světlého/tmavého režimu
     const themeToggle = document.getElementById("themeToggle");
     const html = document.documentElement;
     const icon = themeToggle.querySelector("i");
@@ -169,6 +232,19 @@
         localStorage.setItem("theme", "dark");
       }
     });
+
+    // Animace fade-in při scrollování
+    const cards = document.querySelectorAll(".card");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = "fadeIn 0.8s ease forwards";
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    cards.forEach(card => observer.observe(card));
   </script>
 
 </body>
