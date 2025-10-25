@@ -142,13 +142,8 @@
     }
 
     /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--accent);
-      border-radius: 10px;
-    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
   </style>
 </head>
 <body>
@@ -158,6 +153,7 @@
     <nav>
       <a href="#about">O serveru</a>
       <a href="#news">Novinky</a>
+      <a href="#stats">Statistiky</a>
       <a href="#links">Odkazy</a>
     </nav>
     <button class="btn-theme" id="themeToggle"><i class="bi bi-sun-fill"></i></button>
@@ -194,6 +190,20 @@
     </div>
   </section>
 
+  <!-- Stats -->
+  <section id="stats" class="text-center">
+    <div class="card">
+      <h3>📊 Statistiky serveru</h3>
+      <div class="row g-4 mt-3">
+        <div class="col-md-3"><div class="card p-3"><h5>Status</h5><p id="status">Načítání...</p></div></div>
+        <div class="col-md-3"><div class="card p-3"><h5>Online</h5><p id="onlineCount">—</p></div></div>
+        <div class="col-md-3"><div class="card p-3"><h5>Max</h5><p id="maxCount">—</p></div></div>
+        <div class="col-md-3"><div class="card p-3"><h5>Verze</h5><p id="version">—</p></div></div>
+      </div>
+      <p class="mt-3" id="motd">Načítám MOTD...</p>
+    </div>
+  </section>
+
   <section id="links">
     <div class="card text-center">
       <h3>🌐 Odkazy</h3>
@@ -211,7 +221,7 @@
   </footer>
 
   <script>
-    // Přepínání světlého/tmavého režimu
+    // Light/Dark režim
     const themeToggle = document.getElementById("themeToggle");
     const html = document.documentElement;
     const icon = themeToggle.querySelector("i");
@@ -233,7 +243,7 @@
       }
     });
 
-    // Animace fade-in při scrollování
+    // Animace fade-in při scrollu
     const cards = document.querySelectorAll(".card");
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -245,6 +255,36 @@
     }, { threshold: 0.2 });
 
     cards.forEach(card => observer.observe(card));
+
+    // Statistiky serveru
+    async function loadStats() {
+      const res = await fetch("https://api.mcsrvstat.us/2/play.ultrasmp.eu");
+      const data = await res.json();
+
+      const online = document.getElementById("onlineCount");
+      const max = document.getElementById("maxCount");
+      const version = document.getElementById("version");
+      const motd = document.getElementById("motd");
+      const status = document.getElementById("status");
+
+      if (!data.online) {
+        status.innerHTML = "🔴 Offline";
+        online.innerHTML = "0";
+        max.innerHTML = "-";
+        version.innerHTML = "—";
+        motd.innerHTML = "Server nedostupný";
+        return;
+      }
+
+      status.innerHTML = "🟢 Online";
+      online.innerHTML = data.players.online;
+      max.innerHTML = data.players.max;
+      version.innerHTML = data.version;
+      motd.innerHTML = data.motd.clean.join("<br>");
+    }
+
+    loadStats();
+    setInterval(loadStats, 15000); // každých 15s update
   </script>
 
 </body>
