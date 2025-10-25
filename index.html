@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="cs" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>UltraSMP — Oficiální web</title>
 
   <!-- Bootstrap + Fonts + Icons -->
@@ -28,6 +28,7 @@
       --text: #1e1e2f;
       --glass: rgba(0,0,0,0.04);
       --muted: #556070;
+      --accent: #009d88;
     }
 
     * {
@@ -37,327 +38,138 @@
     }
 
     body {
-      background: radial-gradient(circle at top left, var(--bg1), var(--bg2));
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
       color: var(--text);
-      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+      transition: background 0.5s, color 0.5s;
     }
 
-    /* Global style */
-    .card {
-      border: none;
+    header {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       background: var(--glass);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(10px);
       border-radius: var(--radius);
-      box-shadow: 0 0 30px rgba(0,0,0,0.25);
-      transition: all 0.3s ease;
+      padding: 15px 25px;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+
+    .btn-theme {
+      background: var(--accent);
+      color: #000;
+      border-radius: 30px;
+      padding: 8px 16px;
+      border: none;
+      transition: all 0.3s;
+    }
+
+    .btn-theme:hover {
+      background: var(--accent2);
+      color: #fff;
+    }
+
+    .card {
+      background: var(--glass);
+      border: none;
+      border-radius: var(--radius);
+      padding: 25px;
+      backdrop-filter: blur(8px);
+      color: var(--text);
+      transition: transform 0.3s;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 0 40px rgba(0,255,200,0.15);
     }
 
-    section {
-      padding: 100px 0;
-    }
-
-    section h2 {
+    footer {
+      margin-top: auto;
       text-align: center;
-      font-weight: 800;
-      color: var(--accent);
-      text-shadow: 0 0 15px rgba(0,255,200,0.3);
-      letter-spacing: 1px;
-      margin-bottom: 40px;
+      color: var(--muted);
+      padding: 20px 0;
+      font-size: 0.9rem;
     }
 
     a {
+      color: var(--accent);
       text-decoration: none;
-      color: var(--accent2);
-      transition: 0.2s;
     }
 
     a:hover {
-      color: var(--accent);
-    }
-
-    /* Navbar */
-    .navbar {
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      border-radius: 0 0 var(--radius) var(--radius);
-    }
-
-    .navbar-brand {
-      color: var(--accent);
-      font-weight: 800;
-      font-size: 1.4rem;
-    }
-
-    .nav-link {
-      border-radius: var(--radius);
-      margin: 0 5px;
-      padding: 8px 15px !important;
-      transition: 0.3s;
-    }
-
-    .nav-link:hover {
-      background: var(--accent);
-      color: #000 !important;
-    }
-
-    /* Info */
-    #info .lead {
-      max-width: 800px;
-      margin: 0 auto;
-      color: var(--muted);
-      font-size: 1.1rem;
-    }
-
-    /* Join */
-    #join li {
-      border-radius: var(--radius);
-      border-color: rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.03);
-      transition: 0.3s;
-    }
-
-    #join li:hover {
-      transform: scale(1.02);
-      background: rgba(0,255,200,0.1);
-    }
-
-    /* Stats */
-    #stats .card {
-      border-radius: var(--radius);
-    }
-
-    /* Buttons */
-    .btn {
-      border-radius: var(--radius);
-      font-weight: 600;
-      padding: 10px 18px;
-      transition: 0.3s;
-    }
-
-    .btn-primary {
-      background: var(--accent2);
-      border: none;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent);
-      box-shadow: 0 0 15px var(--accent);
-    }
-
-    /* Blacklist */
-    #blacklistList .list-group-item {
-      border-radius: var(--radius);
-      margin-bottom: 10px;
-      border: none;
-      background: rgba(255,255,255,0.05);
-      transition: 0.3s;
-    }
-
-    #blacklistList .list-group-item:hover {
-      background: rgba(0,255,200,0.08);
-      transform: scale(1.02);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: var(--muted);
-      background: rgba(0,0,0,0.4);
-      border-radius: var(--radius) var(--radius) 0 0;
-      backdrop-filter: blur(10px);
-    }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(var(--accent), var(--accent2));
-      border-radius: var(--radius);
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(255,255,255,0.05);
-    }
-
-    /* Parallax bg */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      opacity: 0.25;
-      background: url('https://cdn.wallpapersafari.com/60/14/n9aM0n.jpg') center/cover no-repeat;
-      filter: blur(6px);
-    }
-
-    /* Smooth reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
-    }
-
-    .reveal.in {
-      opacity: 1;
-      transform: none;
-    }
-
-    #scrollProgress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 4px;
-      width: 0;
-      z-index: 9999;
-      border-radius: var(--radius);
-      background: linear-gradient(90deg,var(--accent),var(--accent2));
-      box-shadow: 0 0 12px var(--accent);
-      transition: width 0.15s linear;
+      color: var(--accent2);
     }
   </style>
 </head>
 <body>
 
-  <!-- Scroll Progress -->
-  <div id="scrollProgress"></div>
+  <header>
+    <h1>UltraSMP</h1>
+    <button class="btn-theme" id="themeToggle"><i class="bi bi-sun-fill"></i> Režim</button>
+  </header>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">UltraSMP</a>
-      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div id="navbarNav" class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#info">Info</a></li>
-          <li class="nav-item"><a class="nav-link" href="#join">Jak se napojit</a></li>
-          <li class="nav-item"><a class="nav-link" href="#rules">Pravidla</a></li>
-          <li class="nav-item"><a class="nav-link" href="#stats">Statistiky</a></li>
-          <li class="nav-item"><a class="nav-link" href="#blacklist">Blacklist</a></li>
-          <li class="nav-item"><a class="nav-link" href="#devlog">Dev Log</a></li>
-        </ul>
-      </div>
+  <div class="container text-center">
+    <div class="card mb-4">
+      <h2 class="mb-3">Vítej na oficiálním webu UltraSMP!</h2>
+      <p>Tady najdeš všechny informace o serveru, novinky, speciální eventy a exkluzivní itemy. 🌌</p>
     </div>
-  </nav>
 
-  <!-- Info -->
-  <section id="info" class="text-center mt-5 pt-5 reveal">
-    <div class="container">
-      <h2>O serveru</h2>
-      <p class="lead">
-        UltraSMP je unikátní survival server s <strong>custom itemy</strong>, <strong>speciálními schopnostmi</strong> a <strong>crate systémem</strong>.
-        Vybuduj impérium, přežij a staň se legendou SMP světa ⚔️
+    <div class="card mb-4">
+      <h3>💎 O serveru</h3>
+      <p>UltraSMP je survival server s <strong>custom itemy</strong>, <strong>eventy</strong> a <strong>crate systémem</strong>.
+      Každý hráč může získat unikátní schopnosti a předměty.</p>
+    </div>
+
+    <div class="card mb-4">
+      <h3>🌐 Odkazy</h3>
+      <p>
+        <a href="#">Discord</a> • 
+        <a href="#">Vote</a> • 
+        <a href="#">Obchod</a> • 
+        <a href="#">Wiki</a>
       </p>
-      <div class="mt-4">
-        <button id="copyIP" class="btn btn-primary">Kopírovat IP: play.ultrasmp.eu</button>
-      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Join -->
-  <section id="join" class="bg-dark text-center reveal">
-    <div class="container">
-      <h2>Jak se napojit</h2>
-      <ol class="list-group list-group-numbered text-start mx-auto" style="max-width:600px;">
-        <li class="list-group-item text-light">Otevři Minecraft (verze 1.21+)</li>
-        <li class="list-group-item text-light">Klikni na „Multiplayer“</li>
-        <li class="list-group-item text-light">Dej „Add Server“</li>
-        <li class="list-group-item text-light">Napiš IP: <b>play.ultrasmp.eu</b></li>
-        <li class="list-group-item text-light">Připoj se a užívej si peklo i ráj zároveň 😈</li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Rules -->
-  <section id="rules" class="reveal">
-    <div class="container">
-      <h2>Pravidla</h2>
-      <div class="card p-4">
-        <ul>
-          <li>❌ Žádné hacky, cheaty nebo modifikace zvyšující výhodu</li>
-          <li>🔥 Griefing povolen pouze mimo chráněné oblasti</li>
-          <li>💬 Respektuj ostatní hráče a staff</li>
-          <li>🚫 Nepoužívej bugy ani dupe glitchy</li>
-          <li>📜 Dodržuj pokyny adminů</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats -->
-  <section id="stats" class="bg-dark text-center reveal">
-    <div class="container">
-      <h2>Statistiky serveru</h2>
-      <div class="row g-4">
-        <div class="col-md-3"><div class="card p-3"><h5>Status</h5><p id="status">Načítání...</p></div></div>
-        <div class="col-md-3"><div class="card p-3"><h5>Online</h5><p id="onlineCount">—</p></div></div>
-        <div class="col-md-3"><div class="card p-3"><h5>Max</h5><p id="maxCount">—</p></div></div>
-        <div class="col-md-3"><div class="card p-3"><h5>Verze</h5><p id="version">—</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Blacklist -->
-  <section id="blacklist" class="text-center reveal">
-    <div class="container">
-      <h2>Blacklist</h2>
-      <ul id="blacklistList" class="list-group mx-auto" style="max-width:600px;"></ul>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>© 2025 UltraSMP — Všechna práva vyhrazena | Made with ❤️ by zakbrashko</footer>
+  <footer>
+    © 2025 UltraSMP — Všechna práva vyhrazena
+  </footer>
 
   <script>
-    // Scroll progress bar
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const height = document.body.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / height) * 100;
-      document.getElementById('scrollProgress').style.width = progress + "%";
+    const themeToggle = document.getElementById("themeToggle");
+    const html = document.documentElement;
+    const icon = themeToggle.querySelector("i");
+
+    if (localStorage.getItem("theme") === "light") {
+      html.setAttribute("data-theme", "light");
+      icon.classList.replace("bi-sun-fill", "bi-moon-fill");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      if (html.getAttribute("data-theme") === "dark") {
+        html.setAttribute("data-theme", "light");
+        icon.classList.replace("bi-sun-fill", "bi-moon-fill");
+        localStorage.setItem("theme", "light");
+      } else {
+        html.setAttribute("data-theme", "dark");
+        icon.classList.replace("bi-moon-fill", "bi-sun-fill");
+        localStorage.setItem("theme", "dark");
+      }
     });
-
-    // Copy IP
-    document.getElementById("copyIP").onclick = () => {
-      navigator.clipboard.writeText("play.ultrasmp.eu");
-      alert("✅ IP adresa zkopírována!");
-    };
-
-    // Blacklist
-    const blacklist = [
-      { name: "z0yn3_", reason: "Cheating" },
-      { name: "NoobMaster69", reason: "Trolling" },
-      { name: "EpicFail", reason: "Griefing" }
-    ];
-
-    const list = document.getElementById("blacklistList");
-    blacklist.forEach(player => {
-      const li = document.createElement("li");
-      li.className = "list-group-item d-flex justify-content-between align-items-center text-light";
-      li.innerHTML = `<span>${player.name}</span><span class="badge bg-danger rounded-pill">${player.reason}</span>`;
-      list.appendChild(li);
-    });
-
-    // Reveal animation
-    const revealEls = document.querySelectorAll(".reveal");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) entry.target.classList.add("in");
-      });
-    }, { threshold: 0.1 });
-    revealEls.forEach(el => observer.observe(el));
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
