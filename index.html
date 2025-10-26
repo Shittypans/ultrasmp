@@ -1,291 +1,450 @@
-<!DOCTYPE html>
-<html lang="cs" data-theme="dark">
+<!doctype html>
+<html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>UltraSMP — Oficiální web</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UltraSMP — Minecraft server</title>
+  <meta name="description" content="UltraSMP — český Minecraft SMP server. IP: play.ultrasmp.eu" />
 
-  <!-- Bootstrap + Fonts + Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google font (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg1: #05080f;
-      --bg2: #0b1222;
-      --accent: #00ffc3;
-      --accent2: #5ab3ff;
-      --glass: rgba(255,255,255,0.08);
-      --text: #eaeaea;
-      --muted: #8e9bb0;
-      --radius: 22px;
+    :root{
+      --bg:#0f1113;
+      --panel:#121416;
+      --muted:#a9b3bf;
+      --accent:#2d8ef6; /* primary blue */
+      --accent-2:#1c6fe0;
+      --glass: rgba(255,255,255,0.03);
+      --card:#0f1316;
+      --highlight: rgba(45,142,246,0.12);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.6)),
+        repeating-conic-gradient(#0c0f12 0% 25%, #0f1215 0% 50%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:40px 20px;
     }
 
-    [data-theme="light"] {
-      --bg1: #f5f7fb;
-      --bg2: #eef3ff;
-      --text: #1e1e2f;
-      --glass: rgba(0,0,0,0.04);
-      --muted: #556070;
-      --accent: #009d88;
-    }
+    .container{max-width:1100px;margin:0 auto;}
 
-    * {
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-      scroll-behavior: smooth;
+    header{
+      display:flex;
+      gap:20px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:32px;
     }
-
-    body {
-      background: linear-gradient(180deg, var(--bg1), var(--bg2));
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 40px 20px;
-      transition: background 0.5s, color 0.5s;
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
     }
-
-    header {
-      width: 100%;
-      max-width: 1100px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border-radius: var(--radius);
-      padding: 15px 25px;
-      margin-bottom: 40px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    .logo{
+      width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;font-weight:800;color:white;font-size:20px;box-shadow:0 6px 24px rgba(45,142,246,0.12);
     }
+    h1{font-size:32px;margin:0}
+    .subtitle{color:var(--muted);font-size:14px}
 
-    header h1 {
-      font-weight: 800;
-      font-size: 1.9rem;
-      color: var(--accent);
-      letter-spacing: 1px;
+    nav{display:flex;gap:12px;align-items:center}
+    .btn{
+      background:transparent;border:1px solid rgba(255,255,255,0.03);padding:10px 14px;border-radius:12px;color:var(--muted);cursor:pointer;font-weight:600;
     }
+    .btn.primary{background:linear-gradient(180deg,var(--accent),var(--accent-2));color:white;border:none;box-shadow:0 8px 28px rgba(28,111,224,0.14)}
 
-    nav a {
-      margin: 0 10px;
-      font-weight: 600;
-      color: var(--text);
-      text-decoration: none;
-      transition: color 0.3s;
+    /* hero */
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 320px;
+      gap:28px;align-items:center;margin-bottom:48px;
     }
-
-    nav a:hover {
-      color: var(--accent);
+    .intro{
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+      padding:28px;border-radius:16px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
     }
+    .tag{color:var(--accent);font-weight:800;letter-spacing:0.6px}
+    .big{font-size:38px;margin:6px 0 12px}
+    p.lead{color:var(--muted);line-height:1.6;margin:0 0 12px}
+    .meta{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}
+    .chip{background:var(--glass);padding:10px 12px;border-radius:12px;color:var(--muted);font-weight:600}
 
-    .btn-theme {
-      background: var(--accent);
-      color: #000;
-      border-radius: 30px;
-      padding: 8px 16px;
-      border: none;
-      transition: all 0.3s;
-      font-weight: 600;
+    /* skins box */
+    .skins{
+      display:flex;flex-direction:column;gap:14px;align-items:center;
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+      padding:16px;border-radius:16px;
     }
-
-    .btn-theme:hover {
-      background: var(--accent2);
-      color: #fff;
+    .skin-preview{
+      width:240px;height:240px;background:linear-gradient(180deg,#0b0d0f,#0f1316);
+      border-radius:12px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+      box-shadow:0 8px 30px rgba(6,12,25,0.6);
     }
+    .skin-preview img{max-width:100%;max-height:100%;object-fit:contain}
+    .skin-label{font-weight:700;margin-top:6px;color:var(--muted);font-size:14px}
 
-    .card {
-      background: var(--glass);
-      border: none;
-      border-radius: var(--radius);
-      padding: 30px;
-      backdrop-filter: blur(8px);
-      color: var(--text);
-      transition: transform 0.3s, background 0.3s;
+    /* features */
+    .why{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+    .card{
+      background:var(--card);padding:18px;border-radius:14px;min-height:120px;
+      box-shadow:0 8px 20px rgba(2,6,23,0.45);border:1px solid rgba(255,255,255,0.02)
     }
+    .card h3{margin:0 0 8px;color:var(--accent)}
+    .card p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
 
-    .card:hover {
-      transform: translateY(-6px);
-      background: rgba(255,255,255,0.1);
+    /* sections */
+    section {margin-top:40px}
+    .section-title{font-size:26px;margin:6px 0 18px}
+    .cols{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:start}
+
+    /* rules / blacklist / stats styling */
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+      padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);
     }
-
-    section {
-      width: 100%;
-      max-width: 1100px;
-      margin-bottom: 40px;
-      animation: fadeIn 0.8s ease forwards;
+    .rules li{margin:8px 0;color:var(--muted)}
+    .stat-row{display:flex;gap:10px;align-items:center;margin:10px 0}
+    .stat{
+      background:var(--glass);padding:12px;border-radius:10px;min-width:140px;text-align:center;
     }
+    .stat strong{display:block;font-size:20px;color:white}
+    .muted{color:var(--muted)}
 
-    footer {
-      margin-top: auto;
-      text-align: center;
-      color: var(--muted);
-      padding: 20px 0;
-      font-size: 0.9rem;
+    /* blacklist / news */
+    .blacklist-list{max-height:240px;overflow:auto;padding:6px;display:flex;flex-direction:column;gap:6px}
+    .ban{
+      background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);
+      font-weight:600
     }
+    .news-list{display:flex;flex-direction:column;gap:10px}
+    .news-item{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px}
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
+    footer{margin-top:60px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .cols{grid-template-columns:1fr}
+      .why{grid-template-columns:1fr}
+      .skins{flex-direction:row;flex-wrap:wrap;justify-content:center}
+      .skin-preview{width:160px;height:160px}
     }
-
-    a:hover {
-      color: var(--accent2);
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>UltraSMP</h1>
-    <nav>
-      <a href="#about">O serveru</a>
-      <a href="#news">Novinky</a>
-      <a href="#stats">Statistiky</a>
-      <a href="#links">Odkazy</a>
-    </nav>
-    <button class="btn-theme" id="themeToggle"><i class="bi bi-sun-fill"></i></button>
-  </header>
-
-  <section id="welcome" class="text-center">
-    <div class="card">
-      <h2 class="mb-3">🌌 Vítej na oficiálním webu UltraSMP!</h2>
-      <p>Najdeš tu všechny informace o serveru, novinky, speciální eventy a exkluzivní itemy.</p>
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="card">
-      <h3>💎 O serveru</h3>
-      <p>
-        UltraSMP je survival server s <strong>custom itemy</strong>, <strong>eventy</strong> a <strong>crate systémem</strong>.<br>
-        Hráči mohou objevovat svět, bojovat, získávat vzácné schopnosti a obchodovat s ostatními.
-      </p>
-      <p>
-        Server běží 24/7, má <span style="color:var(--accent2)">vlastní pluginy</span> a <span style="color:var(--accent2)">unikátní ekonomiku</span>.
-      </p>
-    </div>
-  </section>
-
-  <section id="news">
-    <div class="card">
-      <h3>📰 Novinky</h3>
-      <ul class="list-unstyled">
-        <li>⭐ Nové <strong>Vote Crate</strong> odměny přidány!</li>
-        <li>⚙️ Custom itemy získaly nové efekty a particle animace.</li>
-        <li>🎉 Připravujeme speciální <strong>Halloween event</strong> s limitovanými odměnami!</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Stats -->
-  <section id="stats" class="text-center">
-    <div class="card">
-      <h3>📊 Statistiky serveru</h3>
-      <div class="row g-4 mt-3">
-        <div class="col-md-3"><div class="card p-3"><h5>Status</h5><p id="status">Načítání...</p></div></div>
-        <div class="col-md-3"><div class="card p-3"><h5>Online</h5><p id="onlineCount">—</p></div></div>
-        <div class="col-md-3"><div class="card p-3"><h5>Max</h5><p id="maxCount">—</p></div></div>
-        <div class="col-md-3"><div class="card p-3"><h5>Verze</h5><p id="version">—</p></div></div>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">U</div>
+        <div>
+          <h1>UltraSMP</h1>
+          <div class="subtitle">Český Minecraft SMP — IP: <strong>play.ultrasmp.eu</strong></div>
+        </div>
       </div>
-      <p class="mt-3" id="motd">Načítám MOTD...</p>
-    </div>
-  </section>
 
-  <section id="links">
-    <div class="card text-center">
-      <h3>🌐 Odkazy</h3>
-      <p>
-        <a href="#" class="mx-2"><i class="bi bi-discord"></i> Discord</a>
-        <a href="#" class="mx-2"><i class="bi bi-gift"></i> Vote</a>
-        <a href="#" class="mx-2"><i class="bi bi-cart3"></i> Obchod</a>
-        <a href="#" class="mx-2"><i class="bi bi-journal-text"></i> Wiki</a>
-      </p>
-    </div>
-  </section>
+      <nav>
+        <button class="btn" onclick="scrollToSection('rules')">Pravidla</button>
+        <button class="btn" onclick="scrollToSection('stats')">Statistiky</button>
+        <button class="btn" onclick="scrollToSection('blacklist')">Blacklist / Novinky</button>
+        <a class="btn primary" href="#join">Připojit se</a>
+      </nav>
+    </header>
 
-  <footer>
-    © 2025 UltraSMP — Všechna práva vyhrazena
-  </footer>
+    <main>
+      <section class="hero">
+        <div class="intro">
+          <div class="tag">UltraSMP</div>
+          <div class="big">Vrcholový SMP zážitek v modrém</div>
+          <p class="lead">Český server s propracovanou ekonomikou, přátelským týmem adminů a pravidelnými updaty. Připoj se na <strong>play.ultrasmp.eu</strong> a pojď si zahrát!</p>
+
+          <div class="meta">
+            <div class="chip">✔ Stabilní dedikovaný server</div>
+            <div class="chip">✔ Časté updaty & eventy</div>
+            <div class="chip">✔ Přátelští admini</div>
+          </div>
+
+          <div class="why" style="margin-top:16px">
+            <div class="card">
+              <h3>Výkon serveru</h3>
+              <p>Servery běží na kvalitním dedikovaném stroji — nízký ping, stabilita a rychlost.</p>
+            </div>
+            <div class="card">
+              <h3>Časté updaty</h3>
+              <p>Novinky a updaty pravidelně oznamujeme na Discordu — sleduj, ať ti nic neunikne.</p>
+            </div>
+            <div class="card">
+              <h3>Ochota adminů</h3>
+              <p>Jsme tu pro hráče — přístup, trpělivost a rychlá pomoc při problémech.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skins box: nahraď skin1.png a skin2.png svými obrázky skinů -->
+        <aside class="skins">
+          <div style="font-weight:800;color:var(--accent);font-size:16px">Majitelé — skiny</div>
+
+          <div style="display:flex;gap:10px;flex-direction:column;align-items:center">
+            <div class="skin-preview" id="skinA">
+              <!-- Doporučené rozměry: 512x512 průhledné PNG (nebo export z náhledu skinu) -->
+              <img src="skin1.png" alt="Skin 1" id="skin1img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=...><rect width=100% height=100% fill=%230b0d0f/></svg>'">
+            </div>
+            <div class="skin-label">Majitel 1 — jméno hráče</div>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-direction:column;align-items:center">
+            <div class="skin-preview" id="skinB">
+              <img src="skin2.png" alt="Skin 2" id="skin2img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=...><rect width=100% height=100% fill=%230b0d0f/></svg>'">
+            </div>
+            <div class="skin-label">Majitel 2 — jméno hráče</div>
+          </div>
+
+          <small style="color:var(--muted);font-size:12px">Pro výměnu skinů nahraj soubory `skin1.png` a `skin2.png` do stejné složky jako tento soubor.</small>
+        </aside>
+      </section>
+
+      <section class="cols">
+        <div>
+          <div id="rules" class="panel">
+            <div class="section-title">Pravidla serveru</div>
+            <ol class="rules">
+              <li>Respektuj ostatní hráče. Žádné urážky, rasismus nebo trolling.</li>
+              <li>Žádné cheaty, griefing, dupování nebo exploitování bugů.</li>
+              <li>Dodržuj rozhodnutí adminů a moderátorů.</li>
+              <li>Neblokuj hlavní cesty/portály, nezasahuj do cizích staveb bez povolení.</li>
+              <li>Reklama jen se svolením administrace.</li>
+            </ol>
+            <p class="muted" style="margin-top:12px">Poznámka: tato pravidla jsou ukázková. Nahraď je svými oficiálními pravidly.</p>
+          </div>
+
+          <div id="blacklist" class="panel" style="margin-top:18px">
+            <div class="section-title">Blacklist / Novinky</div>
+
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
+              <input id="banInput" placeholder="Nick nebo důvod (např. cheaty)" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+              <button class="btn primary" onclick="addBan()">Přidat</button>
+            </div>
+
+            <div class="blacklist-list" id="banList">
+              <!-- javascript will populate -->
+            </div>
+
+            <div style="height:8px"></div>
+
+            <div class="section-title" style="font-size:18px;margin-top:12px">Novinky</div>
+            <div class="news-list" id="newsList">
+              <div class="news-item">
+                <strong>Vítáme nový tým</strong>
+                <div class="muted" style="font-size:13px;margin-top:6px">Přidali jsme dva nové moderátory. Více info na Discordu.</div>
+              </div>
+              <!-- další novinky se mohou přidat přes JS nebo backend -->
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div id="stats" class="panel">
+            <div class="section-title">Statistiky & IP</div>
+
+            <div class="stat-row">
+              <div style="flex:1">
+                <div class="muted">IP serveru</div>
+                <div style="font-weight:800;font-size:18px">play.ultrasmp.eu</div>
+              </div>
+              <div style="text-align:right">
+                <div class="muted">Status</div>
+                <div id="srv-status" style="font-weight:800;color:var(--accent)">Neznámý</div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+              <div class="stat">
+                <div class="muted">Hráči</div>
+                <strong id="players">—</strong>
+                <div class="muted" style="font-size:12px">online / max</div>
+              </div>
+              <div class="stat">
+                <div class="muted">Verze</div>
+                <strong id="version">—</strong>
+                <div class="muted" style="font-size:12px">typ</div>
+              </div>
+              <div class="stat">
+                <div class="muted">Ping</div>
+                <strong id="ping">—</strong>
+                <div class="muted" style="font-size:12px">ms (approx.)</div>
+              </div>
+            </div>
+
+            <p class="muted" style="margin-top:12px;font-size:13px">
+              Poznámka: níže je připraven JS kód, který lze upravit pro získávání dat z reálného Minecraft API (mcsrvstat, api.mcsrvstat.us nebo jiného).
+            </p>
+            <button class="btn" style="margin-top:8px" onclick="fetchStats()">Aktualizovat statistiky</button>
+
+            <div style="margin-top:14px">
+              <a id="join" class="btn primary" style="text-decoration:none;display:inline-block" href="#">Připojit se: play.ultrasmp.eu</a>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:18px">
+            <div class="section-title">Kontakt & Discord</div>
+            <p class="muted">Máte otázky? Připojte se na náš Discord nebo napište zprávu adminům.</p>
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <a class="btn" href="#" onclick="alert('Odkaz na Discord zde')">Discord</a>
+              <a class="btn" href="#" onclick="alert('Kontakt (email) zde')">Kontakt</a>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <footer>
+        <div>© UltraSMP — Všechna práva vyhrazena</div>
+        <div class="muted">Design: modrý motiv — upraveno podle požadavku</div>
+      </footer>
+    </main>
+  </div>
 
   <script>
-    // Light/Dark režim
-    const themeToggle = document.getElementById("themeToggle");
-    const html = document.documentElement;
-    const icon = themeToggle.querySelector("i");
+    // jednoduché lokální úložiště pro blacklist (pouze pro demo, persistuje v localStorage)
+    const BAN_KEY = 'ultrasmp_bans_v1';
+    const NEWS_KEY = 'ultrasmp_news_v1';
 
-    if (localStorage.getItem("theme") === "light") {
-      html.setAttribute("data-theme", "light");
-      icon.classList.replace("bi-sun-fill", "bi-moon-fill");
+    function loadBans(){
+      const raw = localStorage.getItem(BAN_KEY);
+      return raw ? JSON.parse(raw) : [];
     }
-
-    themeToggle.addEventListener("click", () => {
-      if (html.getAttribute("data-theme") === "dark") {
-        html.setAttribute("data-theme", "light");
-        icon.classList.replace("bi-sun-fill", "bi-moon-fill");
-        localStorage.setItem("theme", "light");
-      } else {
-        html.setAttribute("data-theme", "dark");
-        icon.classList.replace("bi-moon-fill", "bi-sun-fill");
-        localStorage.setItem("theme", "dark");
-      }
-    });
-
-    // Animace fade-in při scrollu
-    const cards = document.querySelectorAll(".card");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animation = "fadeIn 0.8s ease forwards";
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-
-    cards.forEach(card => observer.observe(card));
-
-    // Statistiky serveru
-    async function loadStats() {
-      const res = await fetch("https://api.mcsrvstat.us/2/play.ultrasmp.eu");
-      const data = await res.json();
-
-      const online = document.getElementById("onlineCount");
-      const max = document.getElementById("maxCount");
-      const version = document.getElementById("version");
-      const motd = document.getElementById("motd");
-      const status = document.getElementById("status");
-
-      if (!data.online) {
-        status.innerHTML = "🔴 Offline";
-        online.innerHTML = "0";
-        max.innerHTML = "-";
-        version.innerHTML = "—";
-        motd.innerHTML = "Server nedostupný";
+    function saveBans(b){ localStorage.setItem(BAN_KEY, JSON.stringify(b)); }
+    function renderBans(){
+      const list = document.getElementById('banList');
+      list.innerHTML = '';
+      const bans = loadBans();
+      if(bans.length === 0) {
+        list.innerHTML = '<div class="muted">Žádné položky v blacklistu.</div>';
         return;
       }
-
-      status.innerHTML = "🟢 Online";
-      online.innerHTML = data.players.online;
-      max.innerHTML = data.players.max;
-      version.innerHTML = data.version;
-      motd.innerHTML = data.motd.clean.join("<br>");
+      bans.forEach((b,idx) => {
+        const el = document.createElement('div');
+        el.className = 'ban';
+        el.innerHTML = `<div>${escapeHtml(b)}</div><div style="display:flex;gap:8px"><button class="btn" onclick="removeBan(${idx})">Odebrat</button></div>`;
+        list.appendChild(el);
+      });
+    }
+    function addBan(){
+      const input = document.getElementById('banInput');
+      const v = input.value.trim();
+      if(!v) return alert('Zadej nick nebo důvod');
+      const bans = loadBans();
+      bans.unshift(v); // newest first
+      saveBans(bans);
+      input.value = '';
+      renderBans();
+    }
+    function removeBan(i){
+      const bans = loadBans();
+      bans.splice(i,1);
+      saveBans(bans);
+      renderBans();
     }
 
-    loadStats();
-    setInterval(loadStats, 15000); // každých 15s update
-  </script>
+    function escapeHtml(s){ return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
 
+    // --- STATISTIKY SERVERU ---
+    // Poznámka: níže je ukázka jak bys mohl volat reálné API (příklady; CORS/APIs musí umožnit request z webu).
+    // Pokud chceš reálné online statistiky, použij např. https://api.mcsrvstat.us/2/<ip> nebo https://api.mcsrvstat.us/ (nutné zkontrolovat CORS)
+    // Příklad: fetch('https://api.mcsrvstat.us/2/play.ultrasmp.eu').then(...)
+
+    async function fetchStats(){
+      const ip = 'play.ultrasmp.eu';
+      // příklad: použití veřejného mcsrvstat API (jen ukázka — může vracet CORS chybu pokud server blokuje cross-origin)
+      const statusEl = document.getElementById('srv-status');
+      const playersEl = document.getElementById('players');
+      const versionEl = document.getElementById('version');
+      const pingEl = document.getElementById('ping');
+
+      statusEl.textContent = 'Načítám...';
+      try {
+        // Tento fetch je jen ukázkový. Pokud nebude fungovat kvůli CORS nebo API, nahraď backend voláním z tvého serveru.
+        // const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+        // const json = await res.json();
+
+        // MOCK response (nahraď výše fetchem pro reálná data)
+        const json = {
+          online: true,
+          players: { online: 12, max: 80, list: ["Hrac1","Hrac2"] },
+          version: "1.20.4",
+          motd: { clean: ["UltraSMP — play.ultrasmp.eu"] },
+          debug: { ping: 48 }
+        };
+
+        if(json.online){
+          statusEl.textContent = 'ONLINE';
+          statusEl.style.color = 'var(--accent)';
+          playersEl.textContent = `${json.players.online} / ${json.players.max}`;
+          versionEl.textContent = json.version || 'neznámá';
+          pingEl.textContent = (json.debug?.ping ?? '—') + ' ms';
+        } else {
+          statusEl.textContent = 'OFFLINE';
+          statusEl.style.color = '#ff7a7a';
+          playersEl.textContent = '0 / —';
+          versionEl.textContent = '—';
+          pingEl.textContent = '—';
+        }
+      } catch(err){
+        console.error(err);
+        statusEl.textContent = 'Chyba';
+        statusEl.style.color = '#ff7a7a';
+        playersEl.textContent = '—';
+        versionEl.textContent = '—';
+        pingEl.textContent = '—';
+      }
+    }
+
+    // scroll utility
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    // inicializace
+    document.addEventListener('DOMContentLoaded', ()=>{
+      renderBans();
+      // načti staty hned po nahrání (místní mock)
+      fetchStats();
+    });
+
+    // Optional: umožní drag-and-drop nebo file input pro změnu skinů lokálně (pro demo)
+    // Pokud chceš, aby majitel mohl nahrávat skiny přes web, bude potřeba backend (upload + storage).
+    (function enableLocalSkinPreview(){
+      const s1 = document.getElementById('skin1img');
+      const s2 = document.getElementById('skin2img');
+      // jednoduché: pokud chceš rychle měnit obrázek, klikni na něj a vyber soubor (lokálně)
+      [s1,s2].forEach(img=>{
+        img.style.cursor = 'pointer';
+        img.title = 'Klikni pro výběr místního obrázku (pouze lokální náhled)';
+        img.addEventListener('click', ()=>{
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = 'image/*';
+          input.onchange = e=>{
+            const f = e.target.files[0];
+            if(!f) return;
+            const url = URL.createObjectURL(f);
+            img.src = url;
+          };
+          input.click();
+        });
+      });
+    })();
+
+  </script>
 </body>
 </html>
