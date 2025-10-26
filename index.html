@@ -118,16 +118,6 @@
       object-fit: contain;
     }
 
-    /* levá postava kouká doprava (na text) */
-    .owner.left img {
-      transform: scaleX(-1);
-    }
-
-    /* pravá postava kouká doleva (na text) */
-    .owner.right img {
-      transform: none;
-    }
-
     .stats {
       display: flex;
       justify-content: center;
@@ -259,10 +249,12 @@
     <h1>ULTRASMP</h1>
 
     <div class="intro">
+      <!-- Levá postava kouká doprava -->
       <div class="owner left" onclick="window.location.href='/members'">
-        <img src="https://mc-heads.net/body/z0yn3_/right" alt="z0yn3_">
+        <img src="https://mc-heads.net/body/z0yn3_/left" alt="z0yn3_" style="transform: scaleX(-1);">
       </div>
 
+      <!-- Text uprostřed -->
       <div class="intro-text">
         <p>
           <strong>UltraSMP</strong> je moderní český Minecraft server zaměřený na komunitní hraní,
@@ -275,8 +267,9 @@
         </p>
       </div>
 
+      <!-- Pravá postava kouká doleva -->
       <div class="owner right" onclick="window.location.href='/members'">
-        <img src="https://mc-heads.net/body/6ok9/left" alt="6ok9">
+        <img src="https://mc-heads.net/body/6ok9/right" alt="6ok9">
       </div>
     </div>
 
@@ -362,4 +355,3 @@
   </script>
 </body>
 </html>
-
