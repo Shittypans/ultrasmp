@@ -64,7 +64,9 @@
 
     .hero {
       text-align: center;
-      padding: 100px 20px 80px;
+      padding: 100px 20px 60px;
+      position: relative;
+      overflow: hidden;
     }
 
     .hero h1 {
@@ -83,34 +85,34 @@
     }
 
     .owners {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 80px auto;
       display: flex;
-      justify-content: center;
-      gap: 80px;
-      margin-top: 60px;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5%;
     }
 
     .owner {
-      text-align: center;
-      transition: transform 0.3s;
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
 
-    .owner:hover { transform: scale(1.05); }
+    .owner:hover {
+      transform: scale(1.05);
+    }
+
+    .owner.left img {
+      transform: scaleX(-1); /* otočí skin aby koukal doprava */
+    }
 
     .owner img {
-      width: 200px;
-      height: 400px;
+      width: 250px;
+      height: 500px;
       object-fit: contain;
-      border-radius: 12px;
-      background: #0f1317;
-      border: 3px solid var(--blue);
-      box-shadow: 0 0 25px rgba(45, 142, 246, 0.3);
-    }
-
-    .owner-name {
-      margin-top: 12px;
-      font-weight: 600;
-      color: var(--muted);
+      background: none;
     }
 
     .stats {
@@ -137,14 +139,6 @@
       color: var(--blue);
     }
 
-    footer {
-      text-align: center;
-      padding: 40px;
-      color: var(--muted);
-      background: #0a0c0e;
-      margin-top: 80px;
-    }
-
     .btn {
       display: inline-block;
       margin-top: 30px;
@@ -161,6 +155,60 @@
       transform: translateY(-3px);
       box-shadow: 0 6px 25px rgba(45, 142, 246, 0.4);
     }
+
+    /* === Novinky === */
+    .news {
+      background: var(--panel);
+      border-radius: var(--radius);
+      margin: 80px auto;
+      padding: 60px 20px;
+      max-width: 1000px;
+      box-shadow: 0 0 40px rgba(45, 142, 246, 0.1);
+    }
+
+    .news h2 {
+      text-align: center;
+      font-size: 36px;
+      background: linear-gradient(to right, var(--blue), var(--blue-dark));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 40px;
+    }
+
+    .news-item {
+      margin-bottom: 30px;
+      border-left: 4px solid var(--blue);
+      padding-left: 20px;
+    }
+
+    .news-item h3 {
+      font-size: 22px;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    .news-item p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+      background: #0a0c0e;
+      margin-top: 80px;
+    }
+
+    @media (max-width: 800px) {
+      .owners {
+        flex-direction: column;
+      }
+      .owner img {
+        width: 200px;
+        height: 400px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -170,22 +218,21 @@
       <a href="/rules">Pravidla</a>
       <a href="/stats">Statistiky</a>
       <a href="/blacklist">Blacklist</a>
+      <a href="/members">Členové</a>
     </nav>
   </header>
 
   <section class="hero">
-    <h1>Vítej na UltraSMP</h1>
-    <p>Český Minecraft SMP server s přátelskou komunitou, stabilním výkonem a aktivními adminy.  
+    <h1>UltraSMP</h1>
+    <p>Oficiální český SMP server s přátelskou komunitou, stabilním výkonem a aktivními adminy.  
     Připoj se hned teď na <strong>play.ultrasmp.eu</strong>!</p>
 
     <div class="owners">
-      <div class="owner">
+      <div class="owner left" onclick="window.location.href='/members'">
         <img src="https://mc-heads.net/body/z0yn3_/right" alt="z0yn3_">
-        <div class="owner-name">z0yn3_</div>
       </div>
-      <div class="owner">
-        <img src="https://mc-heads.net/body/6ok9/right" alt="6ok9">
-        <div class="owner-name">6ok9</div>
+      <div class="owner right" onclick="window.location.href='/members'">
+        <img src="https://mc-heads.net/body/6ok9/left" alt="6ok9">
       </div>
     </div>
 
@@ -207,12 +254,31 @@
     <a class="btn" href="https://discord.gg/" target="_blank">Připojit se na Discord</a>
   </section>
 
+  <section class="news">
+    <h2>📰 Novinky</h2>
+
+    <div class="news-item">
+      <h3>🎉 Spuštění UltraSMP!</h3>
+      <p>Server je oficiálně spuštěn! Připoj se na <strong>play.ultrasmp.eu</strong> a začni budovat své impérium.  
+      Připravili jsme ekonomiku, joby, denní odměny a spoustu zábavy.</p>
+    </div>
+
+    <div class="news-item">
+      <h3>⚙️ Nový OneBlock svět</h3>
+      <p>Vytvořili jsme nový svět pro hráče, kteří chtějí výzvu! Najdeš ho v /warp oneblock.</p>
+    </div>
+
+    <div class="news-item">
+      <h3>💎 Aktualizace VIP výhod</h3>
+      <p>VIP členové nyní získávají exkluzivní kosmetické efekty a přístup k novým regionům.</p>
+    </div>
+  </section>
+
   <footer>
     © 2025 UltraSMP — IP: play.ultrasmp.eu
   </footer>
 
   <script>
-    // === REALNÝ STATUS SERVERU ===
     async function fetchStatus() {
       const statusEl = document.getElementById("status");
       const playersEl = document.getElementById("players");
@@ -244,6 +310,3 @@
   </script>
 </body>
 </html>
-
-
-
