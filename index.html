@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UltraSMP – Minecraft server</title>
+  <title>UltraSMP – Oficiální Minecraft Server</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
@@ -63,36 +63,39 @@
     }
 
     .hero {
+      padding: 100px 10% 60px;
       text-align: center;
-      padding: 100px 20px 60px;
-      position: relative;
-      overflow: hidden;
     }
 
     .hero h1 {
-      font-size: 52px;
+      font-size: 80px;
+      font-weight: 800;
       background: linear-gradient(to right, var(--blue), var(--blue-dark));
       -webkit-background-clip: text;
       color: transparent;
-      margin-bottom: 10px;
+      margin-bottom: 60px;
+      letter-spacing: 2px;
     }
 
-    .hero p {
-      color: var(--muted);
-      font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto 40px;
-    }
-
-    .owners {
-      position: relative;
-      width: 100%;
-      max-width: 1200px;
-      margin: 80px auto;
+    .intro {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      padding: 0 5%;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-bottom: 100px;
+    }
+
+    .intro-text {
+      max-width: 600px;
+      text-align: left;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
+    .intro-text strong {
+      color: var(--blue);
     }
 
     .owner {
@@ -104,15 +107,14 @@
       transform: scale(1.05);
     }
 
-    .owner.left img {
-      transform: scaleX(-1); /* otočí skin aby koukal doprava */
+    .owner img {
+      width: 280px;
+      height: 560px;
+      object-fit: contain;
     }
 
-    .owner img {
-      width: 250px;
-      height: 500px;
-      object-fit: contain;
-      background: none;
+    .owner.left img {
+      transform: scaleX(-1);
     }
 
     .stats {
@@ -139,24 +141,6 @@
       color: var(--blue);
     }
 
-    .btn {
-      display: inline-block;
-      margin-top: 30px;
-      background: linear-gradient(to right, var(--blue), var(--blue-dark));
-      padding: 12px 30px;
-      border-radius: 9999px;
-      color: white;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 25px rgba(45, 142, 246, 0.4);
-    }
-
-    /* === Novinky === */
     .news {
       background: var(--panel);
       border-radius: var(--radius);
@@ -192,6 +176,41 @@
       line-height: 1.6;
     }
 
+    .links {
+      margin: 80px auto;
+      text-align: center;
+    }
+
+    .links h2 {
+      font-size: 32px;
+      background: linear-gradient(to right, var(--blue), var(--blue-dark));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 40px;
+    }
+
+    .link-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .link-buttons a {
+      background: linear-gradient(to right, var(--blue), var(--blue-dark));
+      padding: 12px 30px;
+      border-radius: 9999px;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .link-buttons a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(45, 142, 246, 0.4);
+    }
+
     footer {
       text-align: center;
       padding: 40px;
@@ -200,13 +219,16 @@
       margin-top: 80px;
     }
 
-    @media (max-width: 800px) {
-      .owners {
+    @media (max-width: 1000px) {
+      .intro {
         flex-direction: column;
       }
       .owner img {
         width: 200px;
         height: 400px;
+      }
+      .intro-text {
+        text-align: center;
       }
     }
   </style>
@@ -223,14 +245,25 @@
   </header>
 
   <section class="hero">
-    <h1>UltraSMP</h1>
-    <p>Oficiální český SMP server s přátelskou komunitou, stabilním výkonem a aktivními adminy.  
-    Připoj se hned teď na <strong>play.ultrasmp.eu</strong>!</p>
+    <h1>ULTRASMP</h1>
 
-    <div class="owners">
+    <div class="intro">
       <div class="owner left" onclick="window.location.href='/members'">
         <img src="https://mc-heads.net/body/z0yn3_/right" alt="z0yn3_">
       </div>
+
+      <div class="intro-text">
+        <p>
+          <strong>UltraSMP</strong> je moderní český Minecraft server zaměřený na komunitní hraní,
+          ekonomiku a přátelskou atmosféru. Připoj se k stovkám hráčů, kteří společně tvoří svět plný
+          zábavy, dobrodružství a soutěží.  
+          <br><br>
+          Na našem serveru tě čeká propracovaný systém úkolů, jobů, obchodů a eventů.
+          <br><br>
+          Připoj se na <strong>play.ultrasmp.eu</strong> a staň se součástí komunity, která posouvá hraní Minecraftu na nový level.
+        </p>
+      </div>
+
       <div class="owner right" onclick="window.location.href='/members'">
         <img src="https://mc-heads.net/body/6ok9/left" alt="6ok9">
       </div>
@@ -250,8 +283,6 @@
         <span>Verze serveru</span>
       </div>
     </div>
-
-    <a class="btn" href="https://discord.gg/" target="_blank">Připojit se na Discord</a>
   </section>
 
   <section class="news">
@@ -271,6 +302,16 @@
     <div class="news-item">
       <h3>💎 Aktualizace VIP výhod</h3>
       <p>VIP členové nyní získávají exkluzivní kosmetické efekty a přístup k novým regionům.</p>
+    </div>
+  </section>
+
+  <section class="links">
+    <h2>🔗 Důležité odkazy</h2>
+    <div class="link-buttons">
+      <a href="https://discord.gg/" target="_blank">Discord</a>
+      <a href="https://youtube.com/" target="_blank">YouTube</a>
+      <a href="https://tiktok.com/" target="_blank">TikTok</a>
+      <a href="https://shop.ultrasmp.eu/" target="_blank">Shop</a>
     </div>
   </section>
 
