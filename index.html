@@ -92,6 +92,11 @@
       color: var(--muted);
       line-height: 1.8;
       font-size: 17px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 30px 40px;
+      border-radius: var(--radius);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
     }
 
     .intro-text strong {
@@ -113,7 +118,13 @@
       object-fit: contain;
     }
 
+    /* levá postava kouká doprava (na text) */
     .owner.left img {
+      transform: none;
+    }
+
+    /* pravá postava kouká doleva (na text) */
+    .owner.right img {
       transform: scaleX(-1);
     }
 
