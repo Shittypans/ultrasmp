@@ -1,188 +1,357 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UltraSMP | Minecraft Server</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Reset a základní styl */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UltraSMP – Oficiální Minecraft Server</title>
 
-        body {
-            background-color: #0d1b2a;
-            color: #ffffff;
-            line-height: 1.6;
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+  <style>
+    :root {
+      --blue: #2d8ef6;
+      --blue-dark: #1a66d1;
+      --bg: #0b0e11;
+      --panel: #111418;
+      --text: #e6eef8;
+      --muted: #9ba8b4;
+      --radius: 16px;
+    }
 
-        header {
-            background: #1b263b;
-            padding: 20px 0;
-            text-align: center;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #11203b, #0b0e11 70%);
+      color: var(--text);
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+    }
 
-        header h1 {
-            color: #00aaff;
-            font-size: 2.5rem;
-        }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 10%;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-        nav {
-            margin-top: 10px;
-        }
+    .logo {
+      font-weight: 800;
+      font-size: 28px;
+      background: linear-gradient(to right, var(--blue), var(--blue-dark));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
 
-        nav a {
-            margin: 0 15px;
-            color: #00aaff;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+    nav {
+      display: flex;
+      gap: 18px;
+    }
 
-        nav a:hover {
-            color: #66d9ff;
-        }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+    }
 
-        section {
-            padding: 60px 20px;
-        }
+    nav a:hover {
+      color: var(--blue);
+    }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+    .hero {
+      padding: 100px 10% 60px;
+      text-align: center;
+    }
 
-        h2 {
-            color: #00aaff;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    .hero h1 {
+      font-size: 80px;
+      font-weight: 800;
+      background: linear-gradient(to right, var(--blue), var(--blue-dark));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 60px;
+      letter-spacing: 2px;
+    }
 
-        p {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 20px auto;
-        }
+    .intro {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-bottom: 100px;
+    }
 
-        /* Týmy */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-        }
+    .intro-text {
+      max-width: 600px;
+      text-align: left;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 17px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 30px 40px;
+      border-radius: var(--radius);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
+    }
 
-        .team-member {
-            background: #1b263b;
-            border: 2px solid #00aaff;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    .intro-text strong {
+      color: var(--blue);
+    }
 
-        .team-member:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px #00aaff;
-        }
+    .owner {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-        /* Footer */
-        footer {
-            background: #1b263b;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-            border-top: 2px solid #00aaff;
-        }
+    .owner:hover {
+      transform: scale(1.05);
+    }
 
-        /* Responzivní */
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 2rem;
-            }
+    .owner img {
+      width: 280px;
+      height: 560px;
+      object-fit: contain;
+    }
 
-            nav a {
-                display: block;
-                margin: 10px 0;
-            }
-        }
-    </style>
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 30px;
+      width: 260px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(45, 142, 246, 0.15);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 6px;
+      color: var(--blue);
+    }
+
+    .news {
+      background: var(--panel);
+      border-radius: var(--radius);
+      margin: 80px auto;
+      padding: 60px 20px;
+      max-width: 1000px;
+      box-shadow: 0 0 40px rgba(45, 142, 246, 0.1);
+    }
+
+    .news h2 {
+      text-align: center;
+      font-size: 36px;
+      background: linear-gradient(to right, var(--blue), var(--blue-dark));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 40px;
+    }
+
+    .news-item {
+      margin-bottom: 30px;
+      border-left: 4px solid var(--blue);
+      padding-left: 20px;
+    }
+
+    .news-item h3 {
+      font-size: 22px;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    .news-item p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .links {
+      margin: 80px auto;
+      text-align: center;
+    }
+
+    .links h2 {
+      font-size: 32px;
+      background: linear-gradient(to right, var(--blue), var(--blue-dark));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 40px;
+    }
+
+    .link-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .link-buttons a {
+      background: linear-gradient(to right, var(--blue), var(--blue-dark));
+      padding: 12px 30px;
+      border-radius: 9999px;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .link-buttons a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(45, 142, 246, 0.4);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+      background: #0a0c0e;
+      margin-top: 80px;
+    }
+
+    @media (max-width: 1000px) {
+      .intro {
+        flex-direction: column;
+      }
+      .owner img {
+        width: 200px;
+        height: 400px;
+      }
+      .intro-text {
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<header>
-    <h1>UltraSMP</h1>
+  <header>
+    <div class="logo">UltraSMP</div>
     <nav>
-        <a href="#info">O serveru</a>
-        <a href="#teams">Týmy</a>
-        <a href="#rules">Pravidla</a>
-        <a href="#contact">Kontakt</a>
+      <a href="/rules">Pravidla</a>
+      <a href="/stats">Statistiky</a>
+      <a href="/blacklist">Blacklist</a>
+      <a href="/members">Členové</a>
     </nav>
-</header>
+  </header>
 
-<section id="info">
-    <div class="container">
-        <h2>O serveru</h2>
-        <p>UltraSMP je Minecraft SMP server zaměřený na semi-vanilla hru s funkcemi jako McMMO, Jobs a Land-Claim.</p>
-        <p>Připojte se k nám a zažijte hru s přáteli v čistém a zábavném prostředí.</p>
+  <section class="hero">
+    <h1>ULTRASMP</h1>
+
+    <div class="intro">
+      <!-- Levá postava kouká doprava -->
+      <div class="owner left" onclick="window.location.href='/members'">
+        <img src="https://mc-heads.net/body/z0yn3_/left" alt="z0yn3_" style="transform: scaleX(-1);">
+      </div>
+
+      <!-- Text uprostřed -->
+      <div class="intro-text">
+        <p>
+          <strong>UltraSMP</strong> je moderní český Minecraft server zaměřený na komunitní hraní,
+          ekonomiku a přátelskou atmosféru. Připoj se k stovkám hráčů, kteří společně tvoří svět plný
+          zábavy, dobrodružství a soutěží.  
+          <br><br>
+          Na našem serveru tě čeká propracovaný systém úkolů, jobů, obchodů a eventů.
+          <br><br>
+          Připoj se na <strong>play.ultrasmp.eu</strong> a staň se součástí komunity, která posouvá hraní Minecraftu na nový level.
+        </p>
+      </div>
+
+      <!-- Pravá postava kouká doleva -->
+      <div class="owner right" onclick="window.location.href='/members'">
+        <img src="https://mc-heads.net/body/6ok9/right" alt="6ok9">
+      </div>
     </div>
-</section>
 
-<section id="teams">
-    <div class="container">
-        <h2>Náš tým</h2>
-        <div class="team-grid">
-            <div class="team-member">
-                <h3>Admin</h3>
-                <p>Jméno 1</p>
-            </div>
-            <div class="team-member">
-                <h3>Mod</h3>
-                <p>Jméno 2</p>
-            </div>
-            <div class="team-member">
-                <h3>Builder</h3>
-                <p>Jméno 3</p>
-            </div>
-            <div class="team-member">
-                <h3>Developer</h3>
-                <p>Jméno 4</p>
-            </div>
-        </div>
+    <div class="stats">
+      <div class="stat-box">
+        <strong id="status">Načítání...</strong>
+        <span>Server status</span>
+      </div>
+      <div class="stat-box">
+        <strong id="players">—</strong>
+        <span>Hráči online</span>
+      </div>
+      <div class="stat-box">
+        <strong id="version">—</strong>
+        <span>Verze serveru</span>
+      </div>
     </div>
-</section>
+  </section>
 
-<section id="rules">
-    <div class="container">
-        <h2>Pravidla</h2>
-        <p>1. Respektujte ostatní hráče.</p>
-        <p>2. Žádný cheating nebo griefing.</p>
-        <p>3. Dodržujte pokyny adminů.</p>
-        <p>4. Bavte se a stavte kreativně!</p>
+  <section class="news">
+    <h2>📰 Novinky</h2>
+
+    <div class="news-item">
+      <h3>🎉 Spuštění UltraSMP!</h3>
+      <p>Server je oficiálně spuštěn! Připoj se na <strong>play.ultrasmp.eu</strong> a začni budovat své impérium.  
+      Připravili jsme ekonomiku, joby, denní odměny a spoustu zábavy.</p>
     </div>
-</section>
 
-<section id="contact">
-    <div class="container">
-        <h2>Kontakt</h2>
-        <p>Discord: </p>
-        <p>Instagram: </p>
-        <p>YouTube: </p>
-        <p>TikTok: </p>
+    <div class="news-item">
+      <h3>⚙️ Nový OneBlock svět</h3>
+      <p>Vytvořili jsme nový svět pro hráče, kteří chtějí výzvu! Najdeš ho v /warp oneblock.</p>
     </div>
-</section>
 
-<footer>
-    <p>© 2025 UltraSMP | Všechna práva vyhrazena</p>
-</footer>
+    <div class="news-item">
+      <h3>💎 Aktualizace VIP výhod</h3>
+      <p>VIP členové nyní získávají exkluzivní kosmetické efekty a přístup k novým regionům.</p>
+    </div>
+  </section>
 
+  <section class="links">
+    <h2>🔗 Důležité odkazy</h2>
+    <div class="link-buttons">
+      <a href="https://discord.gg/" target="_blank">Discord</a>
+      <a href="https://youtube.com/" target="_blank">YouTube</a>
+      <a href="https://tiktok.com/" target="_blank">TikTok</a>
+      <a href="https://shop.ultrasmp.eu/" target="_blank">Shop</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 UltraSMP — IP: play.ultrasmp.eu
+  </footer>
+
+  <script>
+    async function fetchStatus() {
+      const statusEl = document.getElementById("status");
+      const playersEl = document.getElementById("players");
+      const versionEl = document.getElementById("version");
+
+      try {
+        const res = await fetch("https://api.mcsrvstat.us/2/play.ultrasmp.eu");
+        const data = await res.json();
+
+        if (data.online) {
+          statusEl.textContent = "ONLINE ✅";
+          statusEl.style.color = "#2d8ef6";
+          playersEl.textContent = `${data.players.online} / ${data.players.max}`;
+          versionEl.textContent = data.version || "Neznámá";
+        } else {
+          statusEl.textContent = "OFFLINE ❌";
+          statusEl.style.color = "#ff5c5c";
+          playersEl.textContent = "0 / —";
+          versionEl.textContent = "—";
+        }
+      } catch (e) {
+        statusEl.textContent = "Chyba načítání";
+        statusEl.style.color = "#ff5c5c";
+      }
+    }
+
+    fetchStatus();
+    setInterval(fetchStatus, 60000);
+  </script>
 </body>
 </html>
